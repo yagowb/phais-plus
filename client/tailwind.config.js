@@ -18,24 +18,29 @@ export default {
           sec: '#476A6F',
           layer: '#364546',
           'layer-hover': '#425657'
-        },
-        green: {
-          main: '#7EB09B',
-          light: '#B0E2D5',
-          dark: '#64907E',
-          transp: '#AADBCE'
-        },
-        others: {
-          red: '#7EB09B',
-          yellow: '#B0E2D5',
-          blue: '#64907E',
-          green: '#64907E',
-        },
-        grays: {
-          disabled: '#7EB09B',
-          'other-drugs': '#B0E2D5',
-          component: '#CCCCCC',
-        },
+      },
+      green: {
+        main: '#7EB09B',
+        light: '#B0E2D5',
+        dark: '#64907E',
+        transp: '#AADBCE'
+      },
+      others: {
+        red: '#7EB09B',
+        yellow: '#B0E2D5',
+        blue: '#64907E',
+        green: '#64907E',
+      },
+      grays: {
+        disabled: '#414F50',
+        'other-drugs': '#485058',
+        component: '#CCCCCC',
+      },
+      white: {
+        100: "#F4F4F5",
+        200: "#E2E4E8",
+        300: "#A1A1AA",
+      }
     },
     extend: {
       borderRadius: {
@@ -43,6 +48,8 @@ export default {
       }
     },
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')
+  ],
 }
 
