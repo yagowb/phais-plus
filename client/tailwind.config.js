@@ -15,6 +15,7 @@ export default {
           main: "#2C3A3B",
           sec: "#476A6F",
           layer: "#364546",
+          dark: "#222D2E",
           "layer-hover": "#425657",
         },
         green: {

@@ -1,7 +1,8 @@
 import { ArrowRightOnRectangleIcon, ArrowUturnLeftIcon } from '@heroicons/react/24/solid'
-import Input from '../../components/Input'
-
 import { Link } from "react-router-dom";
+
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
 import LogoLarge from '/logo-large.svg'
 
@@ -29,13 +30,9 @@ function Login(){
 
       <p className='w-96 pt-1 underline text-end text-sm font-medium text-green-main'>Esqueceu sua senha?</p>
 
-      <button
-        type="submit"
-        className="inline-flex items-center justify-center gap-2 rounded-lg bg-green-dark px-14 py-3 mt-4 text-sm font-medium text-white"
-      >
+      <Button label="ACESSAR" type="submit" color="primary">
         <ArrowRightOnRectangleIcon className='w-6 h-6' />
-        ACESSAR
-      </button>
+      </Button>
     </main>
   )
 }

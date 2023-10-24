@@ -1,8 +1,8 @@
 import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'
 import { UserPlusIcon } from '@heroicons/react/24/outline'
-import Input from '../../components/Input'
 
-import { Link } from "react-router-dom";
+import Input from '../../components/Input'
+import Button from '../../components/Button'
 
 import LogoLarge from '/logo-large.svg'
 import LogoHorizontal from '/logo-horizontal-green.svg'
@@ -27,10 +27,9 @@ function Register(){
           <Input label="Como devemos chamá-lo?" type="text" placeholder="Insira o nome do estabelecimento" />
 
           <div className="flex items-center justify-center">
-            <Link to="analise" className='inline-flex items-center justify-center gap-2 rounded-lg bg-green-dark px-14 py-3 mt-2 text-sm font-medium text-white'>
+            <Button label="SOLICITAR" type="submit" color="primary" redirect="analise">
               <UserPlusIcon className='w-6 h-6' />
-              SOLICITAR
-            </Link>
+            </Button>
           </div>
         </form>
       </section>
@@ -38,12 +37,11 @@ function Register(){
       <section className="flex flex-col gap-6 items-center justify-center h-full w-full bg-bg-layer text-white-200 px-4 py-12 sm:h-96 sm:px-6 sm:py-16 lg:h-full lg:w-1/2 lg:px-8 lg:py-24">
         <img src={LogoLarge} alt="" />
 
-        <div className='flex flex-col gap-2'>
+        <div className='flex flex-col gap-2 items-center'>
           <p className='font-medium'>Se você já possui uma conta:</p>
-          <Link to="login" className='flex items-center justify-center gap-3 rounded-lg font-medium bg-bg-main px-5 py-3 text-white'>
+          <Button label="ACESSAR" type="button" color="secondary" redirect="login">
             <ArrowRightOnRectangleIcon className="h-6 w-6 text-white-200" />
-            ACESSAR
-          </Link>
+          </Button>
         </div>
       </section>
     </main>
