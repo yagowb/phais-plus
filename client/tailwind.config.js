@@ -27,18 +27,13 @@ export default {
         others: {
           red: "#7EB09B",
           yellow: "#B0E2D5",
-          blue: "#64907E",
-          green: "#64907E",
+          blue: "#2C5CA6",
+          green: "#2E875C",
         },
         grays: {
           disabled: "#414F50",
           "other-drugs": "#485058",
           component: "#CCCCCC",
-        },
-        white: {
-          100: "#F4F4F5",
-          200: "#E2E4E8",
-          300: "#A1A1AA",
         },
       },
       borderRadius: {
