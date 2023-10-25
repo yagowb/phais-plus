@@ -7,7 +7,13 @@ const prisma = new PrismaClient();
 
 export class UserController {
   async index(req: Request, res: Response) {
-    const foundUsers = (await prisma.user.findMany()).map((user) => {
+    const foundUsers = (
+      await prisma.user.findMany({
+        where: {
+          deleted_at: null,
+        },
+      })
+    ).map((user) => {
       const { password, ...newUser } = user;
       return newUser;
     });
@@ -44,7 +50,7 @@ export class UserController {
       }
 
       const foundUser = await prisma.user.findFirst({
-        where: { OR: [{ cnpj }, { email }] },
+        where: { OR: [{ cnpj }, { email }], deleted_at: null },
       });
 
       if (foundUser) {
@@ -71,5 +77,31 @@ export class UserController {
     } catch (exception) {
       return res.status(500).json({ error: exception });
     }
+  }
+
+  async destroy(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const foundUser = await prisma.user.findUnique({
+      where: { id, deleted_at: null },
+    });
+
+    if (!foundUser) {
+      return res.status(404).json({
+        error: "User not found",
+        message: "Please provide the ID of an existing user.",
+      });
+    }
+
+    await prisma.user.update({
+      where: {
+        id,
+      },
+      data: {
+        deleted_at: new Date(),
+      },
+    });
+
+    return res.status(204).json({ message: "User deleted successfully." });
   }
 }
