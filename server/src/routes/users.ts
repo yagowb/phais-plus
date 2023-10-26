@@ -5,11 +5,9 @@ import { UserController } from "../controllers/UserController";
 const router = Router();
 const userController = new UserController();
 
-router.use(authMiddleware);
-
-router.get("/", userController.index);
-router.post("/", userController.create);
-router.patch("/:id", userController.update);
-router.delete("/:id", userController.destroy);
+router.get("/", authMiddleware, userController.index);
+router.post("/", authMiddleware, userController.create);
+router.patch("/:id", authMiddleware, userController.update);
+router.delete("/:id", authMiddleware, userController.destroy);
 
 export { router };
