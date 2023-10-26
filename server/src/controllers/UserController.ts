@@ -56,7 +56,9 @@ export class UserController {
         });
       }
 
-      const foundUser = await prisma.user.findUnique({ where: { cnpj } });
+      const foundUser = await prisma.user.findUnique({
+        where: { cnpj, deleted_at: null },
+      });
 
       if (foundUser) {
         return res.status(409).json({
@@ -117,7 +119,9 @@ export class UserController {
         });
       }
 
-      const foundUser = await prisma.user.findUnique({ where: { id } });
+      const foundUser = await prisma.user.findUnique({
+        where: { id, deleted_at: null },
+      });
 
       if (!foundUser) {
         return res.status(404).json({
@@ -128,7 +132,7 @@ export class UserController {
 
       if (cnpj) {
         const foundUserByCnpj = await prisma.user.findUnique({
-          where: { cnpj },
+          where: { cnpj, deleted_at: null },
           select: { cnpj: true },
         });
 
@@ -173,7 +177,9 @@ export class UserController {
     try {
       const { id } = req.params;
 
-      const foundUser = await prisma.user.findUnique({ where: { id } });
+      const foundUser = await prisma.user.findUnique({
+        where: { id, deleted_at: null },
+      });
 
       if (!foundUser) {
         return res.status(404).json({
@@ -185,9 +191,7 @@ export class UserController {
       const uuid = randomUUID();
 
       await prisma.user.update({
-        where: {
-          id,
-        },
+        where: { id },
         data: {
           cnpj: `${uuid}${foundUser.cnpj}`,
           password: uuid,

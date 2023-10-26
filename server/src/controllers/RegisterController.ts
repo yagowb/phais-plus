@@ -1,3 +1,4 @@
+import { randomUUID } from "node:crypto";
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
@@ -57,7 +58,7 @@ export class RegisterController {
       }
 
       const foundRegister = await prisma.register.findUnique({
-        where: { cnpj },
+        where: { cnpj, deleted_at: null },
       });
 
       if (foundRegister) {
@@ -118,7 +119,9 @@ export class RegisterController {
         });
       }
 
-      const foundRegister = await prisma.register.findUnique({ where: { id } });
+      const foundRegister = await prisma.register.findUnique({
+        where: { id, deleted_at: null },
+      });
 
       if (!foundRegister) {
         return res.status(404).json({
@@ -129,7 +132,7 @@ export class RegisterController {
 
       if (cnpj) {
         const foundRegisterByCnpj = await prisma.register.findUnique({
-          where: { cnpj },
+          where: { cnpj, deleted_at: null },
           select: { cnpj: true },
         });
 
@@ -166,5 +169,33 @@ export class RegisterController {
     } catch (exception) {
       return res.status(500).json({ error: exception });
     }
+  }
+
+  async destroy(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const foundRegister = await prisma.register.findUnique({
+      where: { id, deleted_at: null },
+    });
+
+    if (!foundRegister) {
+      return res.status(404).json({
+        error: "Register not found",
+        message: "Please provide the ID of an existing register.",
+      });
+    }
+
+    const uuid = randomUUID();
+
+    await prisma.register.update({
+      where: { id },
+      data: {
+        cnpj: `${uuid}${foundRegister.cnpj}`,
+        phone: uuid,
+        deleted_at: new Date(),
+      },
+    });
+
+    return res.status(204).json({ message: "Register deleted successfully." });
   }
 }
