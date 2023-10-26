@@ -32,4 +32,42 @@ export class MedicationController {
       data: foundMedications,
     });
   }
+
+  async view(req: Request, res: Response) {
+    const { id } = req.params;
+
+    const foundMedication = await prisma.medication.findUnique({
+      where: { id, deleted_at: null },
+      select: {
+        id: true,
+        approvation_date: true,
+        medication_type: true,
+        active_principle: true,
+        pregnancy_risk: true,
+        prescription: true,
+        laboratory: true,
+        request: true,
+        pharmacological_group: true,
+        therapeuthic_indication: true,
+        equivalent_generic: true,
+        equivalent_similar: true,
+        generic_equivalent_to: true,
+        similar_equivalent_to: true,
+        created_at: true,
+        updated_at: true,
+      },
+    });
+
+    if (!foundMedication) {
+      return res.status(404).json({
+        error: "Medication not found",
+        message: "A medication with the provided ID does not exist.",
+      });
+    }
+
+    return res.status(200).json({
+      message: "Medication found succesfully",
+      data: foundMedication,
+    });
+  }
 }
