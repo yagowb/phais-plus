@@ -9,4 +9,11 @@ async function createRegister({ cnpj, email, username, phone }) {
   });
 }
 
-export { createRegister };
+async function authenticate({ cnpj, password }) {
+  return await axios.post("http://127.0.0.1:3001/auth/authenticate", {
+    cnpj,
+    password,
+  });
+}
+
+export { createRegister, authenticate };

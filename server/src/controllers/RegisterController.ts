@@ -1,6 +1,7 @@
 import { randomUUID } from "node:crypto";
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
+import bycript from "bcrypt";
 
 import { validateDocument, validateEmail } from "../utilities/validations";
 
@@ -234,7 +235,7 @@ export class RegisterController {
           cnpj: foundRegister.cnpj,
           email: foundRegister.email,
           username: foundRegister.username,
-          password: "password",
+          password: await bycript.hash("password", 10),
           phone: foundRegister.phone,
         },
       });

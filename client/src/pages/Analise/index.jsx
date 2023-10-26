@@ -8,7 +8,7 @@ import Progress from "./../../assets/request-progress.svg";
 
 function Analise() {
   return (
-    <main className="w-screen h-screen relative flex flex-col items-center justify-center gap-2 bg-bg-main text-white-200">
+    <main className="text-grays-component w-screen h-screen relative flex flex-col items-center justify-center gap-2 bg-bg-main text-white-200">
       <Link
         to="/"
         className="absolute top-7 left-14 flex gap-2 cursor-pointer hover:text-[#c0c0c7]"

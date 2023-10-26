@@ -38,7 +38,7 @@ function Register() {
   }
 
   return (
-    <main className="relative flex flex-row-reverse flex-wrap lg:h-screen lg:items-center">
+    <main className="text-grays-component relative flex flex-row-reverse flex-wrap lg:h-screen lg:items-center">
       <section className="w-full h-full bg-bg-main text-white-200 px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-18">
         <div className="mx-auto max-w-lg text-center">
           <img
