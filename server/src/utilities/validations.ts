@@ -14,3 +14,7 @@ export function validateEmail(email: string) {
 
   return emailPattern.test(email);
 }
+
+export function validatePassword(password: string) {
+  return password.length >= 8;
+}

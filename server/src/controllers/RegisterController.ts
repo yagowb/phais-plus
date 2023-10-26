@@ -172,30 +172,36 @@ export class RegisterController {
   }
 
   async destroy(req: Request, res: Response) {
-    const { id } = req.params;
+    try {
+      const { id } = req.params;
 
-    const foundRegister = await prisma.register.findUnique({
-      where: { id, deleted_at: null },
-    });
-
-    if (!foundRegister) {
-      return res.status(404).json({
-        error: "Register not found",
-        message: "Please provide the ID of an existing register.",
+      const foundRegister = await prisma.register.findUnique({
+        where: { id, deleted_at: null },
       });
+
+      if (!foundRegister) {
+        return res.status(404).json({
+          error: "Register not found",
+          message: "Please provide the ID of an existing register.",
+        });
+      }
+
+      const uuid = randomUUID();
+
+      await prisma.register.update({
+        where: { id },
+        data: {
+          cnpj: `${uuid}${foundRegister.cnpj}`,
+          phone: uuid,
+          deleted_at: new Date(),
+        },
+      });
+
+      return res
+        .status(204)
+        .json({ message: "Register deleted successfully." });
+    } catch (exception) {
+      return res.status(500).json({ error: exception });
     }
-
-    const uuid = randomUUID();
-
-    await prisma.register.update({
-      where: { id },
-      data: {
-        cnpj: `${uuid}${foundRegister.cnpj}`,
-        phone: uuid,
-        deleted_at: new Date(),
-      },
-    });
-
-    return res.status(204).json({ message: "Register deleted successfully." });
   }
 }

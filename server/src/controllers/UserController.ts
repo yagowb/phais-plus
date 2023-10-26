@@ -1,8 +1,13 @@
+import bcrypt from "bcrypt";
 import { randomUUID } from "node:crypto";
 import { Request, Response } from "express";
 import { PrismaClient } from "@prisma/client";
 
-import { validateDocument, validateEmail } from "../utilities/validations";
+import {
+  validateDocument,
+  validateEmail,
+  validatePassword,
+} from "../utilities/validations";
 
 const prisma = new PrismaClient();
 
@@ -56,6 +61,13 @@ export class UserController {
         });
       }
 
+      if (!validatePassword(password)) {
+        return res.status(400).json({
+          error: "Invalid password",
+          message: "The password must be at least 8 characters.",
+        });
+      }
+
       const foundUser = await prisma.user.findUnique({
         where: { cnpj, deleted_at: null },
       });
@@ -67,8 +79,18 @@ export class UserController {
         });
       }
 
+      const encryptedPassword = await bcrypt.hash(password, 10);
       const createdUser = await prisma.user.create({
-        data: { cnpj, email, username, password, phone },
+        data: { cnpj, email, username, password: encryptedPassword, phone },
+        select: {
+          id: true,
+          cnpj: true,
+          email: true,
+          username: true,
+          phone: true,
+          created_at: true,
+          updated_at: true,
+        },
       });
 
       return res.status(201).json({
@@ -116,6 +138,13 @@ export class UserController {
         return res.status(400).json({
           error: "Invalid email address",
           message: "Please provide a valid email address.",
+        });
+      }
+
+      if (!validatePassword(password)) {
+        return res.status(400).json({
+          error: "Invalid password",
+          message: "The password must be at least 8 characters.",
         });
       }
 
