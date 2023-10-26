@@ -204,4 +204,47 @@ export class RegisterController {
       return res.status(500).json({ error: exception });
     }
   }
+
+  async approve(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const foundRegister = await prisma.register.findUnique({
+        where: { id, deleted_at: null },
+      });
+
+      if (!foundRegister) {
+        return res.status(404).json({
+          error: "Register not found",
+          message: "A register with the provided ID does not exist.",
+        });
+      }
+
+      if (foundRegister.approved) {
+        return res.status(412).json({
+          error: "Register already approved",
+          message: "A register with the provided ID is already approved.",
+        });
+      }
+
+      await prisma.register.update({ where: { id }, data: { approved: true } });
+
+      const createdUser = await prisma.user.create({
+        data: {
+          cnpj: foundRegister.cnpj,
+          email: foundRegister.email,
+          username: foundRegister.username,
+          password: "password",
+          phone: foundRegister.phone,
+        },
+      });
+
+      return res.status(201).json({
+        message: "Register approved successfully and respective user created",
+        data: createdUser,
+      });
+    } catch (exception) {
+      return res.status(500).json({ error: exception });
+    }
+  }
 }
