@@ -58,14 +58,14 @@ export class UserController {
         });
       }
 
-      const foundUser = await prisma.user.findFirst({
-        where: { cnpj, deleted_at: null },
+      const foundUser = await prisma.user.findUnique({
+        where: { cnpj },
       });
 
       if (foundUser) {
         return res.status(409).json({
           error: "User already exists",
-          message: "A user with the provided ID already exists.",
+          message: "A user with the provided CNPJ already exists.",
         });
       }
 
@@ -127,8 +127,8 @@ export class UserController {
         });
       }
 
-      const foundUser = await prisma.user.findFirst({
-        where: { id, deleted_at: null },
+      const foundUser = await prisma.user.findUnique({
+        where: { id },
       });
 
       if (!foundUser) {

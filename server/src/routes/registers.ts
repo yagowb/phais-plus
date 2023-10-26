@@ -5,5 +5,6 @@ const router = Router();
 const registerController = new RegisterController();
 
 router.get("/", registerController.index);
+router.post("/", registerController.create);
 
 export { router };
