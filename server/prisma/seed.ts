@@ -25,7 +25,7 @@ interface Presentation {
 
 interface Medication {
   nomeComercial: string;
-  tipoProduto: number;
+  categoriaRegulatoria: string;
   principioAtivo: string;
   classesTerapeuticas: string[];
   apresentacoes: Presentation[];
@@ -33,6 +33,14 @@ interface Medication {
 
 interface MedicationResponse {
   data: Medication;
+}
+
+interface DatabaseMedication {
+  name: string;
+  medicationType: string;
+  activePrinciple: string;
+  prescription: string;
+  pharmacologicalGroups: string[];
 }
 
 async function getCategories(axiosInstance: AxiosInstance) {
@@ -94,17 +102,18 @@ async function main() {
     }),
   });
 
+  let medications: DatabaseMedication[] = [];
   let activePrinciples: Set<string> = new Set();
   let prescriptions: Set<string> = new Set();
   let pharmacologicalGroups: Set<string> = new Set();
   for (const category of categories) {
-    const medications = await getMedicationsByCategory(
+    const medicationProcessNumbers = await getMedicationsByCategory(
       axiosInstance,
       category.id
     );
 
-    const processNumbers = medications.map(
-      (medication) => medication.numProcesso
+    const processNumbers = medicationProcessNumbers.map(
+      (medicationProcessNumber) => medicationProcessNumber.numProcesso
     );
 
     for (const processNumber of processNumbers) {
@@ -123,6 +132,20 @@ async function main() {
         for (const pharmacologicalGroup of medication.classesTerapeuticas) {
           pharmacologicalGroups.add(pharmacologicalGroup.toUpperCase());
         }
+
+        medications.push({
+          name: medication.nomeComercial.toLocaleUpperCase(),
+          medicationType: medication.categoriaRegulatoria.toUpperCase(),
+          activePrinciple: medication.principioAtivo.toUpperCase(),
+          prescription:
+            lastPresentation?.restricaoPrescricao &&
+            lastPresentation?.restricaoPrescricao.length > 0
+              ? lastPresentation?.restricaoPrescricao[0]
+              : "",
+          pharmacologicalGroups: medication.classesTerapeuticas.map(
+            (terapeuthicClass) => terapeuthicClass.toUpperCase()
+          ),
+        });
       } catch (exception) {
         if (
           exception instanceof AxiosError &&
@@ -161,6 +184,41 @@ async function main() {
       return { name: pharmacologicalGroup };
     }),
   });
+
+  const dbMedicationTypes = await prisma.medicationType.findMany();
+  const dbActivePrinciples = await prisma.activePrinciple.findMany();
+  const dbPrescriptions = await prisma.prescription.findMany();
+  const dbPharmacologicalGroups = await prisma.pharmacologicalGroup.findMany();
+
+  for (const medication of medications) {
+    await prisma.medication.create({
+      data: {
+        name: medication.name,
+        medication_type_id: dbMedicationTypes.find(
+          (medicationType) => medicationType.name === medication.medicationType
+        )?.id,
+        active_principle_id: dbActivePrinciples.find(
+          (activePrinciple) =>
+            activePrinciple.name === medication.activePrinciple
+        )?.id,
+        prescription_id: dbPrescriptions.find(
+          (prescription) => prescription.name === medication.name
+        )?.id,
+        pharmacological_group: {
+          connect: medication.pharmacologicalGroups.map(
+            (pharmacologicalGroup) => {
+              return {
+                id: dbPharmacologicalGroups.find(
+                  (dbPharmacologicalGroup) =>
+                    dbPharmacologicalGroup.name === pharmacologicalGroup
+                )?.id,
+              };
+            }
+          ),
+        },
+      },
+    });
+  }
 }
 
 main()
