@@ -10,9 +10,7 @@ export class UserController {
   async index(req: Request, res: Response) {
     try {
       const foundUsers = await prisma.user.findMany({
-        where: {
-          deleted_at: null,
-        },
+        where: { deleted_at: null },
         select: {
           id: true,
           cnpj: true,
@@ -58,9 +56,7 @@ export class UserController {
         });
       }
 
-      const foundUser = await prisma.user.findUnique({
-        where: { cnpj },
-      });
+      const foundUser = await prisma.user.findUnique({ where: { cnpj } });
 
       if (foundUser) {
         return res.status(409).json({
@@ -70,13 +66,7 @@ export class UserController {
       }
 
       const createdUser = await prisma.user.create({
-        data: {
-          cnpj,
-          email,
-          username,
-          password,
-          phone,
-        },
+        data: { cnpj, email, username, password, phone },
       });
 
       return res.status(201).json({
@@ -127,9 +117,7 @@ export class UserController {
         });
       }
 
-      const foundUser = await prisma.user.findUnique({
-        where: { id },
-      });
+      const foundUser = await prisma.user.findUnique({ where: { id } });
 
       if (!foundUser) {
         return res.status(404).json({
@@ -185,9 +173,7 @@ export class UserController {
     try {
       const { id } = req.params;
 
-      const foundUser = await prisma.user.findUnique({
-        where: { id, deleted_at: null },
-      });
+      const foundUser = await prisma.user.findUnique({ where: { id } });
 
       if (!foundUser) {
         return res.status(404).json({
