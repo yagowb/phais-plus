@@ -4,6 +4,7 @@ import ReactDOM from "react-dom/client";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Analise from "./pages/Analise";
+import Medicamentos from "./pages/Medicamentos";
 
 import "./index.css";
 
@@ -21,6 +22,10 @@ const router = createBrowserRouter([
   {
     path: "/analise",
     element: <Analise />,
+  },
+  {
+    path: "/medicamentos",
+    element: <Medicamentos />,
   },
 ]);
 
