@@ -3,7 +3,7 @@ import Checkbox from "../Input/Checkbox"
 
 function FilterBox({ onClose }){
   return (
-    <div className='absolute top-0 left-96 z-10 bg-bg-layer w-60 p-5 rounded-md space-y-3 shadow-md'>
+    <div className='absolute top-0 right-0 md:left-96 z-10 bg-bg-layer w-60 p-5 rounded-md space-y-3 shadow-md'>
       <div className='flex justify-between items-center'>
         <h1 className='font-medium'>Filtros</h1>
         <div className='flex gap-2 items-center'>
