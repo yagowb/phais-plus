@@ -7,6 +7,7 @@ import {
   Pill,
 } from "lucide-react";
 import { useContext, createContext, useState } from "react";
+import { Link } from "react-router-dom";
 
 import Logo from "/Logo.svg";
 
@@ -41,9 +42,9 @@ export default function Sidebar() {
       {/* ITENS DA SIDEBAR */}
       <SidebarContext.Provider value={{ expanded }}>
         <ul className="flex-1 px-3 space-y-2">
-          <SidebarItem icon={<Home />} size={20} text="Home" active={true} />
-          <SidebarItem icon={<Server />} size={20} text="Solicitações" />
-          <SidebarItem icon={<Pill />} size={20} text="Medicamentos" />
+          <SidebarItem icon={<Home />} size={20} path='/home' text="Home" active={true} />
+          <SidebarItem icon={<Server />} size={20} path='/solicitacoes' text="Solicitações" />
+          <SidebarItem icon={<Pill />} size={20} path='/medicamentos' text="Medicamentos" />
         </ul>
       </SidebarContext.Provider>
 
@@ -72,13 +73,18 @@ export default function Sidebar() {
   );
 }
 
-export function SidebarItem({ icon, text, active, alert }) {
+export function SidebarItem({ icon, text, active, path }) {
   const { expanded } = useContext(SidebarContext);
 
   return (
     <li
       className={`
-        relative flex items-center py-2 px-3 my-1
+        relative`}
+    >
+      <Link 
+        to={path}
+        className={`
+        flex items-center py-2 px-3 my-1
         font-medium rounded-md cursor-pointer
         transition-colors group
         ${
@@ -87,28 +93,30 @@ export function SidebarItem({ icon, text, active, alert }) {
             : "hover:bg-bg-layer-hover text-gray-200"
         }
     `}
-    >
-      {icon}
-      <span
-        className={`overflow-hidden transition-all ${
-          expanded ? "w-52 ml-3" : "w-0"
-        }`}
       >
-        {text}
-      </span>
-
-      {!expanded && (
-        <div
-          className={`
-          absolute left-full rounded-md px-2 py-1 ml-6
-          bg-green-light text-others-green text-sm
-          invisible opacity-20 -translate-x-3 transition-all
-          group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
-      `}
+        {icon}
+        <span
+          className={`overflow-hidden transition-all ${
+            expanded ? "w-52 ml-3" : "w-0"
+          }`}
         >
           {text}
-        </div>
-      )}
+        </span>
+      
+        {!expanded && (
+          <div
+            className={`
+            absolute z-10 left-full rounded-md px-2 py-1 ml-6
+            bg-green-light text-others-green text-sm
+            invisible opacity-20 -translate-x-3 transition-all
+            group-hover:visible group-hover:opacity-100 group-hover:translate-x-0
+        `}
+          >
+            {text}
+          </div>
+        )}
+      </Link>
+
     </li>
   );
 }
