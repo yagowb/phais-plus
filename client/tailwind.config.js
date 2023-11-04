@@ -2,6 +2,28 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
+    divideColor: {
+        'custom-divide': 'rgba(170, 219, 206, 0.40)',
+      },
+    fontWeight: {
+      thin: '100',    // Espessura fina
+      light: '300',   // Espessura leve
+      normal: '400',  // Espessura normal
+      medium: '500',  // Espessura média
+      semibold: '600', // Espessura semi-negrito
+      bold: '700',    // Espessura negrito
+      extrabold: '800' // Espessura extra-negrito
+    },
+    fontSize: {
+      '12px': '12px',
+      '14px': '14px',   // Tamanho de texto de 12 pixels
+      '16px': '16px',
+      '18px': '18px',   // Tamanho de texto de 16 pixels
+      '20px': '20px',   // Tamanho de texto de 20 pixels
+      '24px': '24px',   // Tamanho de texto de 24 pixels
+      '32px': '32px',   // Tamanho de texto de 32 pixels
+      // Adicione mais tamanhos de texto em pixels, se necessário
+    },
     extend: {
       screens: {
         xs: "400px",
@@ -35,6 +57,10 @@ export default {
           "other-drugs": "#485058",
           component: "#CCCCCC",
         },
+        neutral: {
+          main: "#A1A1AA",
+          sec: "#F4F4F5"
+        }
       },
       borderRadius: {
         "4xl": "2rem",

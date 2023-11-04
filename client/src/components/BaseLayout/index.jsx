@@ -9,7 +9,7 @@ function BaseLayout({pageName, alignment = 'space-y-4 flex flex-col items-center
         <div className='hidden sm:block'>
           <Sidebar />
         </div>
-        <div className='w-full flex flex-col py-5 px-10 gap-3'>
+        <div className='w-full flex flex-col py-5 px-10'>
           <NavbarMobile />
 
           <div className='flex gap-2 items-center'>
