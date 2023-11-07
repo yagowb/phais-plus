@@ -1,8 +1,8 @@
 # PHAIS+
-Sistema para gerenciar troca de medicamento entre farmácias hospitalares.
+Sistema de gerenciamento e troca de medicamento para farmácias hospitalares.
 
 ### UNIFOR
-Projeto de conclusão de curso - Análise e Desenvolvimento de Sistemas pela Universidade de Fortaleza.
+Projeto de conclusão do curso Análise e Desenvolvimento de Sistemas pela Universidade de Fortaleza.
 
 #### Time
 - Beatriz Vidal

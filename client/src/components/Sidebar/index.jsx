@@ -7,13 +7,14 @@ import {
   Pill,
 } from "lucide-react";
 import { useContext, createContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Logo from "/Logo.svg";
 
 const SidebarContext = createContext();
 
 export default function Sidebar() {
+  const { pathname } = useLocation();
   const [expanded, setExpanded] = useState(true);
 
   return (
@@ -42,9 +43,27 @@ export default function Sidebar() {
       {/* ITENS DA SIDEBAR */}
       <SidebarContext.Provider value={{ expanded }}>
         <ul className="flex-1 px-3 space-y-2">
-          <SidebarItem icon={<Home />} size={20} path='/home' text="Home" active={true} />
-          <SidebarItem icon={<Server />} size={20} path='/solicitacoes' text="Solicitações" />
-          <SidebarItem icon={<Pill />} size={20} path='/medicamentos' text="Medicamentos" />
+          <SidebarItem
+            icon={<Home />}
+            size={20}
+            path="/home"
+            text="Home"
+            active={pathname === "/home"}
+          />
+          <SidebarItem
+            icon={<Server />}
+            size={20}
+            path="/solicitacoes"
+            text="Solicitações"
+            active={pathname === "/solicitacoes"}
+          />
+          <SidebarItem
+            icon={<Pill />}
+            size={20}
+            path="/medicamentos"
+            text="Medicamentos"
+            active={["/medicamentos", "/detalhes"].includes(pathname)}
+          />
         </ul>
       </SidebarContext.Provider>
 
@@ -81,7 +100,7 @@ export function SidebarItem({ icon, text, active, path }) {
       className={`
         relative`}
     >
-      <Link 
+      <Link
         to={path}
         className={`
         flex items-center py-2 px-3 my-1
@@ -102,7 +121,7 @@ export function SidebarItem({ icon, text, active, path }) {
         >
           {text}
         </span>
-      
+
         {!expanded && (
           <div
             className={`
@@ -116,7 +135,6 @@ export function SidebarItem({ icon, text, active, path }) {
           </div>
         )}
       </Link>
-
     </li>
   );
 }

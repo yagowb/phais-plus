@@ -7,6 +7,8 @@ import Analise from "./pages/Analise";
 import Medicamentos from "./pages/Medicamentos";
 import Detalhes from "./pages/Detalhes";
 
+import { Toaster } from "react-hot-toast";
+
 import "./index.css";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -36,6 +38,7 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
+    <Toaster />
     <RouterProvider router={router} />
   </React.StrictMode>
 );
