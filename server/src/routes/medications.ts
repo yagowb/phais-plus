@@ -5,12 +5,12 @@ import { MedicationController } from "../controllers/MedicationController";
 const router = Router();
 const medicationController = new MedicationController();
 
-router.get("/", authMiddleware, medicationController.index);
-router.get("/", authMiddleware, medicationController.search);
+router.get("/", authMiddleware, medicationController.index); 
+router.get("/search", authMiddleware, medicationController.search);
 router.post("/", authMiddleware, medicationController.create);
 
 router.get("/:id", authMiddleware, medicationController.view);
-router.put("/:id", authMiddleware, medicationController.update);
+router.put("/:id", authMiddleware, medicationController.fullUpdate);
 router.patch("/:id", authMiddleware, medicationController.partialUpdate);
 router.delete("/:id", authMiddleware, medicationController.delete);
 
