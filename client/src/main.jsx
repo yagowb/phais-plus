@@ -6,6 +6,7 @@ import Login from "./pages/Login";
 import Analise from "./pages/Analise";
 import Medicamentos from "./pages/Medicamentos";
 import Detalhes from "./pages/Detalhes";
+import Home from "./pages/Home";
 
 import { Toaster } from "react-hot-toast";
 
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
   {
     path: "/detalhes",
     element: <Detalhes />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
 ]);
 
