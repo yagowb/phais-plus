@@ -7,7 +7,7 @@ function NavbarMobile() {
   const [menuIsActive, setMenuIsActive] = useState(false);
 
   return (
-    <nav className="relative flex justify-between items-center sm:hidden">
+    <nav className="relative flex justify-between items-center md:hidden">
       <button
         onClick={() => {
           setMenuIsActive(!menuIsActive);
