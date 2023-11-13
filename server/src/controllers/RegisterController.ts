@@ -33,6 +33,30 @@ export class RegisterController {
     }
   }
 
+  async view(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const foundRegister = await prisma.register.findUnique({
+        where: { id, deleted_at: null },
+      });
+
+      if (!foundRegister) {
+        return res.status(404).json({
+          error: "Register not found",
+          message: "A register with the provided ID does not exist.",
+        });
+      }
+
+      return res.status(200).json({
+        message: "Register found sucessfully.",
+        data: foundRegister,
+      });
+    } catch (exception) {
+      return res.status(500).json({ error: exception });
+    }
+  }
+
   async create(req: Request, res: Response) {
     try {
       const { cnpj, email, username, phone } = req.body;
@@ -66,6 +90,17 @@ export class RegisterController {
         return res.status(409).json({
           error: "Register already exists",
           message: "A register with the provided CNPJ already exists.",
+        });
+      }
+
+      const foundUser = await prisma.user.findUnique({
+        where: { cnpj, deleted_at: null },
+      });
+
+      if (foundUser) {
+        return res.status(409).json({
+          error: "User already exists",
+          message: "A user with the provided CNPJ already exists.",
         });
       }
 
@@ -228,6 +263,13 @@ export class RegisterController {
         });
       }
 
+      if (foundRegister.disapproved) {
+        return res.status(412).json({
+          error: "Register already disapproved",
+          message: "A register with the provided ID is already disapproved.",
+        });
+      }
+
       await prisma.register.update({ where: { id }, data: { approved: true } });
 
       const createdUser = await prisma.user.create({
@@ -238,12 +280,71 @@ export class RegisterController {
           password: await bycript.hash("password", 10),
           phone: foundRegister.phone,
         },
+        select: {
+          id: true,
+          cnpj: true,
+          email: true,
+          username: true,
+          phone: true,
+          created_at: true,
+          updated_at: true,
+        },
       });
 
       return res.status(201).json({
         message: "Register approved successfully and respective user created",
         data: createdUser,
       });
+    } catch (exception) {
+      return res.status(500).json({ error: exception });
+    }
+  }
+
+  async disapprove(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+      const { disapprovalReason } = req.body;
+
+      if (!disapprovalReason) {
+        return res.status(400).json({
+          error: "Missing or invalid data",
+          message: "Please provide the disapproval reason.",
+        });
+      }
+
+      const foundRegister = await prisma.register.findUnique({
+        where: { id, deleted_at: null },
+      });
+
+      if (!foundRegister) {
+        return res.status(404).json({
+          error: "Register not found",
+          message: "A register with the provided ID does not exist.",
+        });
+      }
+
+      if (foundRegister.approved) {
+        return res.status(412).json({
+          error: "Register already approved",
+          message: "A register with the provided ID is already approved.",
+        });
+      }
+
+      if (foundRegister.disapproved) {
+        return res.status(412).json({
+          error: "Register already disapproved",
+          message: "A register with the provided ID is already disapproved.",
+        });
+      }
+
+      await prisma.register.update({
+        where: { id },
+        data: { disapproved: true, disapproval_reason: disapprovalReason },
+      });
+
+      return res
+        .status(200)
+        .json({ message: "Register disapproved successfully" });
     } catch (exception) {
       return res.status(500).json({ error: exception });
     }
