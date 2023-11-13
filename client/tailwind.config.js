@@ -35,16 +35,32 @@ export default {
           "other-drugs": "#485058",
           component: "#CCCCCC",
         },
+        neutral: {
+          main: "#A1A1AA",
+          sec: "#F4F4F5",
+        },
       },
       borderRadius: {
         "4xl": "2rem",
+      },
+      divideColor: {
+        "custom-divide": "rgba(170, 219, 206, 0.40)",
+      },
+      fontSize: {
+        "12px": "12px",
+        "14px": "14px",
+        "16px": "16px",
+        "18px": "18px",
+        "20px": "20px",
+        "24px": "24px",
+        "32px": "32px",
       },
     },
   },
   plugins: [
     require("@tailwindcss/forms")({
-      strategy: 'class'
+      strategy: "class",
     }),
-    require('tailwind-scrollbar'),
+    require("tailwind-scrollbar"),
   ],
 };

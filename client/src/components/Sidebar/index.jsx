@@ -7,17 +7,18 @@ import {
   Pill,
 } from "lucide-react";
 import { useContext, createContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import Logo from "/Logo.svg";
 
 const SidebarContext = createContext();
 
-export default function Sidebar() {
+export default function Sidebar({ setIsExpanded }) {
+  const { pathname } = useLocation();
   const [expanded, setExpanded] = useState(true);
 
   return (
-    <nav className="h-screen w-fit flex flex-col bg-bg-main border-r border-bg-layer shadow-sm">
+    <nav className="h-screen fixed w-fit flex flex-col bg-bg-main border-r border-bg-layer shadow-sm">
       {/* LOGO E BOTÃO DE ENCOLHER SIDEBAR */}
       <div className="p-4 pb-2 mb-4 flex justify-between items-center">
         <img
@@ -28,7 +29,10 @@ export default function Sidebar() {
           alt=""
         />
         <button
-          onClick={() => setExpanded((curr) => !curr)}
+          onClick={() => {
+            setExpanded((curr) => !curr)
+            setIsExpanded((curr) => !curr)
+          }}
           className="p-1.5 rounded-lg bg-bg-layer hover:bg-bg-layer-hover"
         >
           {expanded ? (
@@ -42,9 +46,27 @@ export default function Sidebar() {
       {/* ITENS DA SIDEBAR */}
       <SidebarContext.Provider value={{ expanded }}>
         <ul className="flex-1 px-3 space-y-2">
-          <SidebarItem icon={<Home />} size={20} path='/home' text="Home" active={true} />
-          <SidebarItem icon={<Server />} size={20} path='/solicitacoes' text="Solicitações" />
-          <SidebarItem icon={<Pill />} size={20} path='/medicamentos' text="Medicamentos" />
+          <SidebarItem
+            icon={<Home />}
+            size={20}
+            path="/home"
+            text="Home"
+            active={pathname === "/home"}
+          />
+          <SidebarItem
+            icon={<Server />}
+            size={20}
+            path="/solicitacoes"
+            text="Solicitações"
+            active={pathname === "/solicitacoes"}
+          />
+          <SidebarItem
+            icon={<Pill />}
+            size={20}
+            path="/medicamentos"
+            text="Medicamentos"
+            active={["/medicamentos", "/detalhes"].includes(pathname)}
+          />
         </ul>
       </SidebarContext.Provider>
 
@@ -57,7 +79,7 @@ export default function Sidebar() {
         <div
           className={`
               flex justify-between items-center
-              overflow-hidden transition-all ${expanded ? "w-52 ml-3" : "w-0"}
+              overflow-hidden transition-all ${expanded ? "w-40 ml-3" : "w-0"}
           `}
         >
           <div className="leading-4">
@@ -81,7 +103,7 @@ export function SidebarItem({ icon, text, active, path }) {
       className={`
         relative`}
     >
-      <Link 
+      <Link
         to={path}
         className={`
         flex items-center py-2 px-3 my-1
@@ -97,12 +119,12 @@ export function SidebarItem({ icon, text, active, path }) {
         {icon}
         <span
           className={`overflow-hidden transition-all ${
-            expanded ? "w-52 ml-3" : "w-0"
+            expanded ? "w-40 ml-3" : "w-0"
           }`}
         >
           {text}
         </span>
-      
+
         {!expanded && (
           <div
             className={`
@@ -116,7 +138,6 @@ export function SidebarItem({ icon, text, active, path }) {
           </div>
         )}
       </Link>
-
     </li>
   );
 }

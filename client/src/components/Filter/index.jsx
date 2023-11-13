@@ -48,8 +48,16 @@ function FilterBox({ onClose }) {
         <div className="space-y-1">
           <h1 className="font-medium">Receituário</h1>
           <Checkbox name="receituario" id="comum" label="Receita comum" />
-          <Checkbox name="receituario" id="2vias" label="Receita comum em 2 vias"/>
-          <Checkbox name="receituario" id="idento" label="Idento de prescrição" />
+          <Checkbox
+            name="receituario"
+            id="2vias"
+            label="Receita comum em 2 vias"
+          />
+          <Checkbox
+            name="receituario"
+            id="idento"
+            label="Idento de prescrição"
+          />
           <Checkbox name="receituario" id="a1" label="A1 (Amarela)" />
           <Checkbox name="receituario" id="hospitalar" label="Uso hospitalar" />
         </div>

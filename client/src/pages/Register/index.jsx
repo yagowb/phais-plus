@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
+import toast from "react-hot-toast";
 
 import Input from "../../components/Input";
 import Button from "../../components/Button";
@@ -25,15 +26,33 @@ function Register() {
       const phone = phoneInputRef.current.value;
       const username = usernameInputRef.current.value;
 
-      if (!cnpj || !email || !phone || !username) {
-        return window.alert("Todos os campos são obrigatórios!");
+      const errors = [];
+      if (!cnpj) {
+        errors.push('O campo "CNPJ" é obrigatório.');
+      }
+
+      if (!email) {
+        errors.push('O campo "E-mail" é obrigatório.');
+      }
+
+      if (!phone) {
+        errors.push('O campo "Telefone" é obrigatório.');
+      }
+
+      if (!username) {
+        errors.push('O campo "Como devemos chamá-lo?" é obrigatório.');
+      }
+
+      if (errors.length) {
+        return errors.forEach((error) => toast.error(error));
       }
 
       await createRegister({ cnpj, email, phone, username });
-
       navigate("/analise");
+
+      toast.success("Solicitação de cadastro enviada com sucesso.");
     } catch (exception) {
-      window.alert(exception.response.data.message);
+      toast.error(exception.response.data.message);
     }
   }
 
