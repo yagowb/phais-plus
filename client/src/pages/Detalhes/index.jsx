@@ -22,7 +22,7 @@ function Detalhes() {
 
         <div className="flex flex-col gap-3">
           {/* Linha superior */}
-          <div className="flex flex-col sm:flex-row gap-8 sm:gap-3">
+          <div className="flex flex-col md:flex-row gap-8 sm:gap-3">
             {/* Coluna esquerda - Informações Gerais */}
             <DetailSection title="Informações Gerais">
               <InfoItem title="Princípios ativos" content={detalhesMedicamentos.principioAtivo} />
