@@ -6,7 +6,7 @@ import { Undo2 } from "lucide-react";
 
 function BaseLayout({
   pageName,
-  alignment = "space-y-4 flex flex-col items-center md:items-start",
+  alignment = "flex flex-col items-center md:items-start",
   backPath,
   style,
   children,
@@ -17,7 +17,7 @@ function BaseLayout({
 
     <div className="flex text-gray-200">
       <main className="bg-bg-dark flex-1 flex h-screen overflow-x-hidden">
-        <div className={`hidden md:block ${!isExpanded ? 'sm:mr-60' : 'sm:mr-16'}`}>
+        <div className={`hidden md:block transition-all ${!isExpanded ? 'sm:mr-64' : 'sm:mr-16'}`}>
           <Sidebar setIsExpanded={setIsExpanded} />
         </div>
         <div className="w-full flex flex-col py-5 px-10 gap-6 md:gap-3">
