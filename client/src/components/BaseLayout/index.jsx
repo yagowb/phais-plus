@@ -17,10 +17,10 @@ function BaseLayout({
 
     <div className="flex text-gray-200">
       <main className="bg-bg-dark flex-1 flex h-screen overflow-x-hidden">
-        <div className={`hidden sm:block ${!isExpanded ? 'sm:mr-60' : 'sm:mr-16'}`}>
+        <div className={`hidden md:block ${!isExpanded ? 'sm:mr-60' : 'sm:mr-16'}`}>
           <Sidebar setIsExpanded={setIsExpanded} />
         </div>
-        <div className="w-full flex flex-col py-5 px-10 gap-6 sm:gap-3">
+        <div className="w-full flex flex-col py-5 px-10 gap-6 md:gap-3">
           <NavbarMobile />
 
           <div className="flex items-center justify-between">
