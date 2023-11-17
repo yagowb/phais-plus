@@ -3,7 +3,8 @@ import {
   ArrowRightOnRectangleIcon,
   ArrowUturnLeftIcon,
 } from "@heroicons/react/24/solid";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 import LogoLarge from "/logo-large.svg";
 import Input from "../../components/Input";
@@ -12,6 +13,8 @@ import Button from "../../components/Button";
 import { authenticate } from "../../services/api";
 
 function Login() {
+  const navigate = useNavigate();
+
   const cnpjInputRef = useRef();
   const passwordInputRef = useRef();
 
@@ -20,15 +23,25 @@ function Login() {
       const cnpj = cnpjInputRef.current.value;
       const password = passwordInputRef.current.value;
 
-      if (!cnpj || !password) {
-        return window.alert("Todos os campos são obrigatórios!");
+      const errors = [];
+      if (!cnpj) {
+        errors.push('O campo "CNPJ" é obrigatório.');
+      }
+
+      if (!password) {
+        errors.push('O campo "Senha" é obrigatório.');
+      }
+
+      if (errors.length) {
+        return errors.forEach((error) => toast.error(error));
       }
 
       await authenticate({ cnpj, password });
+      navigate("/medicamentos");
 
-      window.alert("Usuário autenticado com sucesso!");
+      toast.success("Usuário autenticado com sucesso!");
     } catch (exception) {
-      window.alert("CNPJ ou senha inválidos!");
+      toast.error(exception.response.data.message);
     }
   }
 

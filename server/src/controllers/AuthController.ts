@@ -33,17 +33,10 @@ export class AuthController {
         },
       });
 
-      if (!foundUser) {
-        return res.status(404).json({
-          error: "User not found",
-          message: "A user with the provided CNPJ does not exist.",
-        });
-      }
-
-      if (!(await bcrypt.compare(password, foundUser.password))) {
+      if (!foundUser || !(await bcrypt.compare(password, foundUser.password))) {
         return res.status(401).json({
           error: "Authentication failed",
-          message: "The password you entered is incorrect.",
+          message: "The CNPJ or password is incorrect.",
         });
       }
 
