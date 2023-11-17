@@ -5,7 +5,7 @@ function Table({ titles, values, hasLinks }) {
 
   const renderTableData = (key, text) => {
     return (
-      <td key={key} scope="col" className="px-6 py-3 font-normal">
+      <td key={key} scope="col" className={`px-6 py-3 font-normal ${key == 0 && 'underline underline-offset-2 text-green-main'}`}>
         {text}
       </td>
     );
