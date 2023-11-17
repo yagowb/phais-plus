@@ -7,6 +7,7 @@ import Analise from "./pages/Analise";
 import Medicamentos from "./pages/Medicamentos";
 import Detalhes from "./pages/Detalhes";
 import Solicitacoes from "./pages/Solicitacoes";
+import Home from "./pages/Home";
 import Admin from "./pages/Admin/Requisicoes";
 
 import { Toaster } from "react-hot-toast";
@@ -39,6 +40,10 @@ const router = createBrowserRouter([
   {
     path: "/solicitacoes",
     element: <Solicitacoes />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
   {
     path: "/admin",
