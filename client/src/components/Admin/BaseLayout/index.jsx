@@ -7,7 +7,7 @@ function BaseLayout({ children }) {
       <main className="bg-bg-dark flex-1 flex h-screen overflow-x-hidden">
         <Sidebar />
 
-        <div className="w-full ml-[245px] flex flex-col">
+        <div className="w-full ml-[260px] flex flex-col">
           <Navbar />
 
           <main className="w-full">

@@ -43,7 +43,7 @@ function Sidebar() {
           alt=""
           className="w-10 h-10 rounded-md"
         />
-        <div className="flex justify-between items-center overflow-hidden transition-all w-40 ml-3">
+        <div className="flex justify-between items-center overflow-hidden transition-all w-44 ml-3">
           <div className="leading-4">
             <h4 className="font-semibold text-gray-200">Beatriz Vidal</h4>
             <span className="text-xs text-gray-300">
@@ -72,7 +72,7 @@ function SidebarItem({ icon, text, active, path }) {
         `}
       >
         {icon}
-        <span className="overflow-hidden transition-all w-40 ml-3">{text}</span>
+        <span className="overflow-hidden transition-all w-44 ml-3">{text}</span>
       </Link>
     </li>
   );
