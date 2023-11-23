@@ -1,7 +1,7 @@
 import {
   MoreVertical,
-  ChevronLast,
-  ChevronFirst,
+  ChevronRight,
+  ChevronLeft,
   Home,
   Server,
   Pill,
@@ -36,9 +36,9 @@ export default function Sidebar({ setIsExpanded }) {
           className="p-1.5 rounded-lg bg-bg-layer hover:bg-bg-layer-hover"
         >
           {expanded ? (
-            <ChevronFirst color="#f5f5f5" />
+            <ChevronLeft color="#f5f5f5" />
           ) : (
-            <ChevronLast color="#f5f5f5" />
+            <ChevronRight color="#f5f5f5" />
           )}
         </button>
       </div>
