@@ -9,6 +9,7 @@ import Detalhes from "./pages/Detalhes";
 import Solicitacoes from "./pages/Solicitacoes";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin/Requisicoes";
+import SolicitacaoIndividual from "./pages/SolicitacaoIndividual";
 
 import { Toaster } from "react-hot-toast";
 
@@ -48,6 +49,10 @@ const router = createBrowserRouter([
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/solicitacao-individual",
+    element: <SolicitacaoIndividual />,
   },
 ]);
 

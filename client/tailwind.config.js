@@ -18,6 +18,11 @@ export default {
           dark: "#222D2E",
           "layer-hover": "#425657",
         },
+        urgencyColor: {
+          green: "#2E875C",
+          yellow: "#AA8F00",
+          red: "#BC5252",
+        },
         green: {
           main: "#7EB09B",
           light: "#B0E2D5",
