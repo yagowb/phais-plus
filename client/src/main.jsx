@@ -5,7 +5,7 @@ import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Analise from "./pages/Analise";
 import Medicamentos from "./pages/Medicamentos";
-// import Detalhes from "./pages/Detalhes";
+import Detalhes from "./pages/Detalhes";
 
 import { Toaster } from "react-hot-toast";
 
@@ -19,21 +19,21 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
-    path: "/analise",
+    path: "analise",
     element: <Analise />,
   },
   {
-    path: "/medicamentos",
+    path: "medicamentos",
     element: <Medicamentos />,
   },
-  // {
-  //   path: "/detalhes",
-  //   element: <Detalhes />,
-  // },
+  {
+    path: "medicamentos/:id",
+    element: <Detalhes />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

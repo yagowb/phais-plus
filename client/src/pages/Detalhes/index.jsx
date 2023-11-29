@@ -1,8 +1,6 @@
 import BaseLayout from "./../../components/BaseLayout";
-import { Link } from "react-router-dom";
-import { ArrowUturnLeftIcon } from "@heroicons/react/24/solid";
-import riscoImg from "/risco.svg";
-import receitaTipo from "/receita-tipo.svg";
+import { Back } from "../../components/Back";
+import { MedicationType } from "../../components/MedicationType";
 
 const cod = "#123";
 const nome = "TOPISON";
@@ -39,182 +37,146 @@ const similares = [
   { nome: "Topliv", fabricante: "Neo Química" },
   { nome: "Elocom", fabricante: "Schering-Plough" },
   { nome: "Resgat", fabricante: "Ache" },
-  // ... outros similares com suas informações
 ];
 
 function Detalhes() {
   return (
     <BaseLayout pageName="Detalhes do medicamento">
-      <Link
-        to="/medicamentos"
-        className="absolute top-16 right-16 flex gap-2 cursor-pointer hover:text-[#c0c0c7]"
-      >
-        <ArrowUturnLeftIcon className="w-5 h-5" />
-        <p>Voltar</p>
-      </Link>
-      <div className="rounded-lg flex w-full flex-col bg-bg-main ml-4">
-        {/* Divisão horizontal no topo */}
-        <div className="w-full bg-bg-main mb-4 flex items-center">
-          <p className="text-24px mt-4">{cod + " - " + nome}</p>
-          <img
-            src={receitaTipo}
-            alt="Sua Imagem"
-            className="w-8 h-8 ml-4 mt-4"
-          />
+      <Back to="/" position="right" />
+      <div className="rounded-lg flex w-full flex-col bg-bg-main">
+        <div className="w-full bg-bg-main flex items-center justify-start gap-8 mb-6">
+          <p className="text-xl">{cod + " - " + nome}</p>
+          <MedicationType type="G" />
         </div>
 
-        <div className="h-auto w-full flex bg-bg-main">
-          <div style={{ fontSize: "14px" }} className="w-1/2 h-full text-14px">
-            <div className="text-neutral-main">Princípios ativos</div>
-            <div style={{ fontSize: "20px" }} className="mb-4 mt-2">
-              {principioAtivo}
+        <div className="h-auto w-full flex gap-6 bg-bg-main">
+          <div className="w-1/2 h-full flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Princípios ativos</p>
+              <p className="text-neutral-200">{principioAtivo}</p>
             </div>
-            <div className="text-neutral-main" style={{ fontSize: "14px" }}>
-              Grupos Farmacológicos
-            </div>
-            <div style={{ fontSize: "18px" }} className="p-4">
-              <ul className="list-disc pl-4">
+
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Grupos Farmacológicos</p>
+              <ul className="text-neutral-200 list-disc pl-4">
                 {gruposFarm.map((item, index) => (
                   <li key={index}>{item}</li>
                 ))}
               </ul>
             </div>
-            <div className="text-neutral-main" style={{ fontSize: "14px" }}>
-              Indicações terapeuticas
-            </div>
-            <div style={{ fontSize: "18px" }} className="p-4">
-              <ul className="list-disc pl-4">
+
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">
+                Indicações terapeuticas
+              </p>
+              <ul className="text-neutral-200 list-disc pl-4">
                 {indicTerap.map((item, index) => (
                   <li key={index}>{item}</li>
                 ))}
               </ul>
             </div>
-            <div className="text-neutral-main" style={{ fontSize: "14px" }}>
-              Risco na gravidez
-            </div>
-            <div className="flex items-center text-18px gap-4 ml-2 mb-4 mt-2">
-              <img
-                src={riscoImg}
-                alt="Imagem de risco"
-                className="w-14 h-14" // Defina o tamanho desejado usando classes Tailwind CSS
-              />
-              {risco}
+
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Risco na gravidez</p>
+              <div className="flex items-center gap-4">
+                <div className="bg-medication-other w-16 h-16 aspect-square rounded-xl flex items-center justify-center">
+                  <span className="text-4xl font-bold">C</span>
+                </div>
+                <p className="text-neutral-200">{risco}</p>
+              </div>
             </div>
 
-            <div style={{ fontSize: "14px" }}>
-              Aprovado pela Anvisa: {dataAnvisa}
-              <br />
-              Receituário: {receita}
+            <div>
+              <p className="text-neutral-200 text-sm">
+                Aprovado pela Anvisa: {dataAnvisa}
+              </p>
+              <p className="text-neutral-200 text-sm">Receituário: {receita}</p>
             </div>
-
-            {/* Divisão esquerda */}
           </div>
-          <div
-            style={{ fontSize: "14px" }}
-            className="w-1/4 h-full mb-4 mr-8 ml-8"
-          >
-            <div className="text-neutral-main">Laboratório</div>
 
-            <div className="bg-bg-main p-4">
-              <ul className="bg-bg-layer rounded-lg divide-y divide-custom-divide">
+          <div className="w-1/4 h-full flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Laboratório</p>
+              <ul className="bg-bg-layer rounded-lg divide-custom-divide">
                 {lab.map((item, index) => (
-                  <li key={index} className="text-16px py-4 mx-6">
+                  <li key={index} className="text-neutral-200 py-4 mx-6">
                     {item}
                   </li>
                 ))}
               </ul>
             </div>
-            <div className="text-neutral-main">Genéricos Equivalentes</div>
-            <div className="bg-bg-main p-4">
+
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Genéricos Equivalentes</p>
               <ul className="bg-bg-layer rounded-lg divide-y divide-custom-divide">
                 {genericos.map((generico, index) => (
-                  <li key={index} className="py-4">
-                    <div className="mx-6">
-                      {" "}
-                      {/* Adiciona margem à esquerda e à direita */}
-                      <span className="text-16px">{generico.nome}</span>{" "}
-                      {/* Nome em 16px */}
-                    </div>
-                    <div className="mx-6">
-                      {" "}
-                      {/* Adiciona margem à esquerda e à direita */}
-                      <span className="text-14px font-thin">
-                        {generico.fabricante}
-                      </span>{" "}
-                      {/* Fabricante em 14px e cinza */}
-                    </div>
+                  <li key={index} className="flex flex-col py-4 mx-6">
+                    <span className="text-neutral-200">{generico.nome}</span>
+                    <span className="text-neutral-400 text-sm font-thin">
+                      {generico.fabricante}
+                    </span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="text-neutral-main">Similares Equivalentes</div>
-            <div className="bg-bg-main p-4">
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Similares Equivalentes</p>
               <ul className="bg-bg-layer rounded-lg divide-y divide-custom-divide">
                 {similares.map((similar, index) => (
-                  <li key={index} className="py-4">
-                    <div className="mx-6">
-                      {" "}
-                      {/* Adiciona margem à esquerda e à direita */}
-                      <span className="text-16px">{similar.nome}</span>{" "}
-                      {/* Nome em 16px */}
-                    </div>
-                    <div className="mx-6">
-                      {" "}
-                      {/* Adiciona margem à esquerda e à direita */}
-                      <span className="text-14px font-light">
-                        {similar.fabricante}
-                      </span>{" "}
-                      {/* Fabricante em 14px e cinza */}
-                    </div>
+                  <li key={index} className="flex flex-col py-4 mx-6">
+                    <span className="text-neutral-200">{similar.nome}</span>
+                    <span className="text-neutral-400 text-sm font-thin">
+                      {similar.fabricante}
+                    </span>
                   </li>
                 ))}
               </ul>
             </div>
-
-            {/* Divisão do meio */}
           </div>
-          <div className="p-2 w-1/4 bg-bg-layer max-h-100 rounded-lg mr-16 ml-8 mb-20">
-            <div style={{ fontSize: "20px" }}>
-              <p className="text-center text-20px font-semibold mt-4 mb-6">
-                APRESENTAÇÃO
-              </p>
+
+          <div className="p-2 w-1/4 bg-bg-layer max-h-100 rounded-lg px-4 py-6">
+            <p className="text-center text-xl font-semibold mb-6">
+              APRESENTAÇÃO
+            </p>
+
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <p className="text-neutral-200">Creme dematológico 1 MG/G</p>
+                <ul className="text-neutral-400 list-disc pl-4">
+                  <li>Caixa com 10 ou 20 g</li>
+                  <li>Uso dermatológico.</li>
+                  <li>Uso adulto e pediátrico acima de 2 anos.</li>
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="text-neutral-200">Dosagem</p>
+                <ul className="text-neutral-400 list-disc pl-4">
+                  <li>
+                    Aplicar 1 camada fina sobre a área afetada, 1 vez ao dia
+                  </li>
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="text-neutral-200">Creme dematológico 1 MG/G</p>
+                <ul className="text-neutral-400 list-disc pl-4">
+                  <li>Caixa com 10 ou 20 g</li>
+                  <li>Uso dermatológico.</li>
+                  <li>Uso adulto e pediátrico acima de 2 anos.</li>
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="text-neutral-200">Dosagem</p>
+                <ul className="text-neutral-400 list-disc pl-4">
+                  <li>
+                    Aplicar 1 camada fina sobre a área afetada, 1 vez ao dia
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div style={{ fontSize: "16px" }} className="text-16px ml-2">
-              Creme dematológico 1 MG/G
-            </div>
-            <div className="ml-4 text-16px text-neutral-main">
-              <ul className="list-disc pl-4">
-                <li>Caixa com 10 ou 20 g</li>
-                <li>Uso dermatológico.</li>
-                <li>Uso adulto e pediátrico acima de 2 anos.</li>
-              </ul>
-            </div>
-            <div className="text-16px ml-6 mt-4">Dosagem</div>
-            <div className="text-16px text-neutral-main ml-4">
-              <ul className="list-disc pl-4">
-                <li>
-                  Aplicar 1 camada fina sobre a área afetada, 1 vez ao dia
-                </li>
-              </ul>
-            </div>
-            <div className="text-16px ml-2 mt-4">Creme dematológico 1 MG/G</div>
-            <div className="text-16px text-neutral-main ml-4">
-              <ul className="list-disc pl-4">
-                <li>Caixa com 10 ou 20 g</li>
-                <li>Uso dermatológico.</li>
-                <li>Uso adulto e pediátrico acima de 2 anos.</li>
-              </ul>
-            </div>
-            <div className="text-16px ml-6 mt-4">Dosagem</div>
-            <div className="text-16px text-neutral-main ml-4">
-              <ul className="list-disc pl-4">
-                <li>
-                  Aplicar 1 camada fina sobre a área afetada, 1 vez ao dia
-                </li>
-              </ul>
-            </div>
-            {/* Divisão direita */}
           </div>
         </div>
       </div>

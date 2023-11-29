@@ -7,7 +7,7 @@ import { Back } from "../../components/Back";
 function Analise() {
   return (
     <main className="w-screen h-screen relative flex flex-col items-center justify-center gap-2 bg-bg-main">
-      <Back to="/" />
+      <Back to="/" position="left" />
 
       <div
         className="absolute top-8 right-8 cursor-not-allowed"

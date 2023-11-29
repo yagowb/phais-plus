@@ -46,7 +46,7 @@ function Login() {
 
   return (
     <main className="w-screen h-screen relative flex flex-col items-center justify-center gap-6 bg-bg-main">
-      <Back to="/" />
+      <Back to="/" position="left" />
 
       <div className="text-center">
         <img
