@@ -2,6 +2,7 @@ import BaseLayout from "./../../components/BaseLayout";
 import Search from "./../../components/Input/Search";
 import Table from "./../../components/Table";
 import Filter from "../../components/Filter";
+import { MedicationType } from "../../components/MedicationType";
 
 function Medicamentos() {
   let tableTitles = [
@@ -19,7 +20,7 @@ function Medicamentos() {
       "Topison",
       "Furoato de mometasona",
       "Receita Comum",
-      "R",
+      <MedicationType type="R" />,
       "LIBBS",
     ],
     [
@@ -28,7 +29,7 @@ function Medicamentos() {
       "Topison",
       "Furoato de mometasona",
       "Receita Comum",
-      "R",
+      <MedicationType type="G" />,
       "LIBBS",
     ],
     [
@@ -37,7 +38,7 @@ function Medicamentos() {
       "Topison",
       "Furoato de mometasona",
       "Receita Comum",
-      "R",
+      <MedicationType type="S" />,
       "LIBBS",
     ],
     [
@@ -46,7 +47,7 @@ function Medicamentos() {
       "Topison",
       "Furoato de mometasona",
       "Receita Comum",
-      "R",
+      <MedicationType type="O" />,
       "LIBBS",
     ],
     [
@@ -55,7 +56,7 @@ function Medicamentos() {
       "Topison",
       "Furoato de mometasona",
       "Receita Comum",
-      "R",
+      <MedicationType type="S" />,
       "LIBBS",
     ],
   ];

@@ -39,6 +39,12 @@ export default {
           main: "#A1A1AA",
           sec: "#F4F4F5",
         },
+        medication: {
+          generic: "#B1752E",
+          reference: "#2C5CA6",
+          similar: "#2E875C",
+          other: "#707D89",
+        },
       },
       borderRadius: {
         "4xl": "2rem",

@@ -8,7 +8,7 @@ function BaseLayout({
 }) {
   return (
     <div className="flex text-neutral-200">
-      <main className="bg-bg-dark flex-1 flex h-screen overflow-y-hidden">
+      <main className="bg-bg-dark flex-1 flex h-screen overflow-x-hidden">
         <div className="hidden sm:block">
           <Sidebar />
         </div>
