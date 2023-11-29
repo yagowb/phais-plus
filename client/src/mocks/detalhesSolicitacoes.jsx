@@ -7,6 +7,8 @@ const detalhesSolicitacoes = {
     descricao:
       "Olá! Nosso fornecedor vai demorar mais do que o esperado e estamos precisando urgentemente dos medicamentos",
     prazo: "3 dias",
+    criadoPor: "Beatriz Vidal",
+    criadoData: "16:34, 09/06/2023",
   };
   
   export { detalhesSolicitacoes }

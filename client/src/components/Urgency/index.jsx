@@ -9,7 +9,7 @@ const Urgency = ({ urgency }) => {
   const badgeColor = urgencyColors[urgency];
 
   return (
-    <span className={`inline-block py-2 px-4 rounded-full font-sm uppercase text-white ${badgeColor}`}>
+    <span className={`inline-block py-2 px-4 rounded-full text-sm uppercase text-white ${badgeColor}`}>
       {urgency}
     </span>
   );
