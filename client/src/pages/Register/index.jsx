@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { UserPlusIcon } from "@heroicons/react/24/outline";
 import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
 import toast from "react-hot-toast";
@@ -115,9 +115,17 @@ function Register() {
             />
           </div>
 
-          <Button label="Solicitar" color="primary" onClick={handleForm}>
-            <UserPlusIcon className="w-6 h-6" />
-          </Button>
+          <div className="w-full flex flex-col items-center justify-center gap-3">
+            <Button label="Solicitar" color="primary" onClick={handleForm}>
+              <UserPlusIcon className="w-6 h-6" />
+            </Button>
+            <Link
+              to="/login"
+              className="text-green-dark font-medium underline lg:hidden"
+            >
+              Já possui uma conta?
+            </Link>
+          </div>
         </form>
       </section>
     </main>
