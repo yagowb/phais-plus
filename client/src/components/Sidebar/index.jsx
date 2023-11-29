@@ -80,8 +80,8 @@ export default function Sidebar() {
           `}
         >
           <div className="leading-4">
-            <h4 className="font-semibold text-gray-200">Beatriz Vidal</h4>
-            <span className="text-xs text-gray-300">
+            <h4 className="font-semibold text-neutral-200">Beatriz Vidal</h4>
+            <span className="text-xs text-neutral-300">
               beatrizvidal@gmail.com
             </span>
           </div>
@@ -108,8 +108,8 @@ export function SidebarItem({ icon, text, active, path }) {
         transition-colors group
         ${
           active
-            ? "bg-bg-layer hover:bg-bg-layer-hover text-gray-200"
-            : "hover:bg-bg-layer-hover text-gray-200"
+            ? "bg-bg-layer hover:bg-bg-layer-hover text-neutral-200"
+            : "hover:bg-bg-layer-hover text-neutral-200"
         }
     `}
       >

@@ -15,7 +15,7 @@ function NavbarMobile() {
         className="hover:bg-bg-layer flex gap-1 items-center p-1 rounded cursor-pointer"
       >
         <MenuIcon size={32} color="rgb(229, 231, 235)" />
-        <span className="text-2xl font-medium text-gray-200">PHAIS+</span>
+        <span className="text-2xl font-medium text-neutral-200">PHAIS+</span>
       </button>
 
       <img

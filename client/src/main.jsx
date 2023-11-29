@@ -4,7 +4,7 @@ import ReactDOM from "react-dom/client";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import Analise from "./pages/Analise";
-// import Medicamentos from "./pages/Medicamentos";
+import Medicamentos from "./pages/Medicamentos";
 // import Detalhes from "./pages/Detalhes";
 
 import { Toaster } from "react-hot-toast";
@@ -26,10 +26,10 @@ const router = createBrowserRouter([
     path: "/analise",
     element: <Analise />,
   },
-  // {
-  //   path: "/medicamentos",
-  //   element: <Medicamentos />,
-  // },
+  {
+    path: "/medicamentos",
+    element: <Medicamentos />,
+  },
   // {
   //   path: "/detalhes",
   //   element: <Detalhes />,

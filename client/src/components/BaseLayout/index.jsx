@@ -7,17 +7,16 @@ function BaseLayout({
   children,
 }) {
   return (
-    <div className="flex text-gray-200">
-      <main className="bg-bg-dark flex-1 flex h-screen overflow-x-hidden">
+    <div className="flex text-neutral-200">
+      <main className="bg-bg-dark flex-1 flex h-screen overflow-y-hidden">
         <div className="hidden sm:block">
           <Sidebar />
         </div>
-        <div className="w-full flex flex-col py-5 px-10">
+
+        <div className="w-full flex flex-col gap-4 p-8">
           <NavbarMobile />
 
-          <div className="flex gap-2 items-center">
-            <h1 className="text-xl font-medium">{pageName}</h1>
-          </div>
+          <h1 className="text-xl font-medium">{pageName}</h1>
 
           <div className={`bg-bg-main p-5 rounded ${alignment}`}>
             {children}

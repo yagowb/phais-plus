@@ -61,9 +61,9 @@ function Medicamentos() {
   ];
 
   return (
-    <BaseLayout pageName="Todos os medicamentos">
-      <div className="relative flex justify-center items-center w-10/12 md:w-fit gap-2">
-        <Search />
+    <BaseLayout pageName="Todos os Medicamentos">
+      <div className="relative w-full flex justify-start items-center gap-2">
+        <Search placeholder="Pesquisar medicamentos" />
 
         <Filter />
       </div>
