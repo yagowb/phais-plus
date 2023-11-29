@@ -25,8 +25,8 @@ export default {
           transp: "#AADBCE",
         },
         others: {
-          red: "#7EB09B",
-          yellow: "#B0E2D5",
+          red: "#BC5252",
+          yellow: "#D5B300",
           blue: "#2C5CA6",
           green: "#2E875C",
         },
