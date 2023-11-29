@@ -13,7 +13,7 @@ function BaseLayout({
           <Sidebar />
         </div>
 
-        <div className="w-full flex flex-col gap-4 p-8">
+        <div className="relative w-full flex flex-col gap-4 p-8">
           <NavbarMobile />
 
           <h1 className="text-xl font-medium">{pageName}</h1>

@@ -45,7 +45,7 @@ function Medicamentos() {
           "name" in medication_type && (
             <MedicationType type={(medication_type?.name[0]).toUpperCase()} />
           ),
-          laboratory,
+          laboratory?.name,
         ]
       );
 
