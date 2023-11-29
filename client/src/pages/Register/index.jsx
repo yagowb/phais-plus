@@ -57,7 +57,7 @@ function Register() {
 
   return (
     <main className="relative flex flex-wrap h-screen lg:items-center">
-      <section className="hidden flex-col gap-8 items-center justify-center h-full w-full bg-bg-layer text-white-200 px-4 py-12 lg:flex lg:h-full lg:w-1/2 lg:px-8 lg:py-24">
+      <section className="hidden flex-col gap-8 items-center justify-center h-full w-full bg-bg-layer px-4 py-12 lg:flex lg:h-full lg:w-1/2 lg:px-8 lg:py-24">
         <img src={phaisPlusVerticalLogo} alt="Logo Phais+" />
 
         <div className="flex flex-col gap-4 items-center">
@@ -65,12 +65,12 @@ function Register() {
             Se você já possui uma conta:
           </p>
           <Button to="/login" label="Acessar" color="secondary">
-            <ArrowRightOnRectangleIcon className="h-6 w-6 text-white-200" />
+            <ArrowRightOnRectangleIcon className="h-6 w-6" />
           </Button>
         </div>
       </section>
 
-      <section className="w-full h-full flex flex-col items-center justify-center gap-6 bg-bg-main text-white-200 px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-18">
+      <section className="w-full h-full flex flex-col items-center justify-center gap-6 bg-bg-main px-4 py-12 sm:px-6 sm:py-16 lg:w-1/2 lg:px-8 lg:py-18">
         <div className="mx-auto max-w-lg text-center">
           <img
             src={phaisPlusHorizontalLogo}
@@ -121,7 +121,7 @@ function Register() {
             </Button>
             <Link
               to="/login"
-              className="text-green-dark font-medium underline lg:hidden"
+              className="text-green-dark font-medium underline hover:text-green-dark lg:hidden"
             >
               Já possui uma conta?
             </Link>
