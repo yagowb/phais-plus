@@ -8,7 +8,7 @@ import phaisPlusVerticalLogo from "/logo-large.svg";
 import phaisPlusHorizontalLogo from "/logo-horizontal-green.svg";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import { createRegister } from "../../services/api";
+import { createRegister } from "../../services/api/register";
 
 function Register() {
   const navigate = useNavigate();

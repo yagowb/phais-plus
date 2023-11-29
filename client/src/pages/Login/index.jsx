@@ -1,8 +1,5 @@
 import { useRef } from "react";
-import {
-  ArrowRightOnRectangleIcon,
-  ArrowUturnLeftIcon,
-} from "@heroicons/react/24/solid";
+import { ArrowRightOnRectangleIcon } from "@heroicons/react/24/solid";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 
@@ -11,7 +8,7 @@ import phaisPlusHorizontalLogo from "/logo-horizontal-green.svg";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
 import { Back } from "../../components/Back";
-import { authenticate } from "../../services/api";
+import { authenticate } from "../../services/api/auth";
 
 function Login() {
   const navigate = useNavigate();
@@ -37,7 +34,8 @@ function Login() {
         return errors.forEach((error) => toast.error(error));
       }
 
-      await authenticate({ cnpj, password });
+      const { data: authResponse } = await authenticate({ cnpj, password });
+      localStorage.setItem("accessToken", authResponse.data.token);
       navigate("/medicamentos");
 
       toast.success("Usuário autenticado com sucesso!");

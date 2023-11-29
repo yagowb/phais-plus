@@ -7,7 +7,7 @@ export const MedicationType = ({ type }) => {
   };
 
   if (!(type in medicationTypes)) {
-    throw new Error("Invalid medication type.");
+    type = "O";
   }
 
   const [borderColor, textColor] = medicationTypes[type];

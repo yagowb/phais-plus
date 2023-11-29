@@ -8,11 +8,11 @@ function Table({ titles, values, hasLinks }) {
       <td
         key={key}
         scope="col"
-        className={`px-6 py-3 font-normal ${
+        className={`font-normal px-6 py-3 ${
           key === 0 ? "text-green-light" : ""
         }`}
       >
-        {text}
+        {text ?? "-"}
       </td>
     );
   };

@@ -10,6 +10,7 @@ export class MedicationController {
         where: { deleted_at: null },
         select: {
           id: true,
+          name: true,
           approvation_date: true,
           medication_type: true,
           active_principle: true,
@@ -45,6 +46,7 @@ export class MedicationController {
         where: { id, deleted_at: null },
         select: {
           id: true,
+          name: true,
           approvation_date: true,
           medication_type: true,
           active_principle: true,
