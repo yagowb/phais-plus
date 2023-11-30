@@ -159,7 +159,7 @@ function Solicitacoes() {
             />
           );
         })}
-        <div className="border-b-[2px] pb-0.5 flex-1 border-neutrals-disabled"></div>
+        <div className="border-b-[2px] pb-0.5 flex-1 border-grays-disabled" />
       </div>
 
       <Table
@@ -176,7 +176,7 @@ function ButtonTipoSolicitacao({ handleFunction, isActive, label }) {
     <button
       onClick={handleFunction}
       className={`border-b-[2px] pb-0.5 px-4 ${
-        isActive ? "border-neutral-300" : "border-neutrals-disabled"
+        isActive ? "border-neutral-300" : "border-grays-disabled"
       }`}
     >
       {label}

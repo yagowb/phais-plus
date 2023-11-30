@@ -50,7 +50,7 @@ function Home() {
           </div>
           <div
             onClick={closeModal}
-            className="bg-black/25 h-screen w-screen absolute z-10"
+            className="bg-black/25 h-screen w-screen absolute top-0 left-0 z-10"
           />
         </>
       )}

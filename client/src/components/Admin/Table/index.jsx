@@ -5,7 +5,11 @@ function Table({ titles, values, hasLinks }) {
 
   const renderTableData = (key, text) => {
     return (
-      <td key={key} scope="col" className="px-6 py-3 font-normal">
+      <td
+        key={key}
+        scope="col"
+        className="text-neutral-200 px-6 py-3 font-normal"
+      >
         {text}
       </td>
     );
@@ -45,7 +49,7 @@ function Table({ titles, values, hasLinks }) {
                 return (
                   <tr
                     key={index}
-                    className="bg-bg-layer border-b border-neutral-600 hover:bg-bg-sec cursor-pointer"
+                    className="bg-bg-layer border-b border-neutral-600 hover:bg-bg-sec"
                   >
                     {value.map((text, index2) => {
                       return renderTableData(index2, text);
