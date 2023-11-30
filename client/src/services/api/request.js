@@ -6,6 +6,12 @@ export const getRequests = async (accessToken) => {
   });
 };
 
+export const getRequest = async (accessToken, id) => {
+  return await api.get(`/requests/${id}`, {
+    headers: { Authorization: `Bearer ${accessToken}` },
+  });
+};
+
 export const createRequest = async (
   accessToken,
   {

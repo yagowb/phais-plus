@@ -17,6 +17,8 @@ export default function Sidebar({ setIsExpanded }) {
   const { pathname } = useLocation();
   const [expanded, setExpanded] = useState(true);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <nav className="h-screen fixed w-fit flex flex-col bg-bg-main border-r border-bg-layer shadow-sm">
       {/* LOGO E BOTÃO DE ENCOLHER SIDEBAR */}
@@ -72,8 +74,8 @@ export default function Sidebar({ setIsExpanded }) {
 
       <div className="border-t border-bg-layer flex p-3">
         <img
-          src="https://ui-avatars.com/api/?name=Beatriz+Vidal&background=B0E2D5&color=2E875C&bold=true"
-          alt=""
+          src={`https://ui-avatars.com/api/?name=${user.username}&background=B0E2D5&color=2E875C&bold=true`}
+          alt="Foto de perfil"
           className="w-10 h-10 rounded-md"
         />
         <div
@@ -83,10 +85,8 @@ export default function Sidebar({ setIsExpanded }) {
           `}
         >
           <div className="leading-4">
-            <h4 className="font-semibold text-neutral-200">Beatriz Vidal</h4>
-            <span className="text-xs text-neutral-300">
-              beatrizvidal@gmail.com
-            </span>
+            <h4 className="font-semibold text-neutral-200">{user.username}</h4>
+            <span className="text-xs text-neutral-300">{user.email}</span>
           </div>
           <MoreVertical size={20} color="#cccccc" />
         </div>

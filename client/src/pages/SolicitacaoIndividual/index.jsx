@@ -1,22 +1,54 @@
+import { useEffect, useState } from "react";
 import { Search } from "lucide-react";
+import { useParams } from "react-router-dom";
 
 import { detalhesSolicitacoes } from "../../mocks/detalhesSolicitacoes";
 import BaseLayout from "./../../components/BaseLayout";
 import { Back } from "../../components/Back";
 import Urgency from "../../components/Urgency";
+import { getRequest } from "../../services/api/request";
 
-import './index.css'
+import "./index.css";
 
 function SolicitacaoIndividual() {
+  const { id } = useParams();
+  const [request, setRequest] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
+      const { data: requestResponse } = await getRequest(accessToken, id);
+
+      setRequest(requestResponse.data);
+    })();
+  }, []);
+
+  const dateDiffInDays = (initialDate, finalDate) => {
+    const timeDifference = finalDate.getTime() - initialDate.getTime();
+    return Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+  };
+
+  if (!request) {
+    return;
+  }
+
+  const dueDateInDays = dateDiffInDays(new Date(), new Date(request.due_date));
+
   return (
-    <BaseLayout pageName="Solicitação" backPath="/solicitacoes" style="p-8" alignment="flex flex-col items-center md:items-start">
+    <BaseLayout
+      pageName="Solicitação"
+      backPath="/solicitacoes"
+      style="p-8"
+      alignment="flex flex-col items-center md:items-start"
+    >
       <Back to="/solicitacoes" position="right" />
 
       <div className="w-full flex items-center gap-10 mb-3">
         <p className="text-neutral-200 text-xl font-semibold">
-          {detalhesSolicitacoes.cod + " - " + detalhesSolicitacoes.nome}
+          {request.id.substring(0, 8) + " - " + request.hospital.username}
         </p>
-        <Urgency urgency={"urgente"} />
+        <Urgency urgency={request.priority.name.toLowerCase()} />
       </div>
       <div className="flex flex-col md:flex-row gap-4 md:justify-between w-full">
         <div className="w-4/5">
@@ -29,13 +61,13 @@ function SolicitacaoIndividual() {
               <div>
                 <label className="text-neutral-400 text-sm">Quantidade</label>
                 <p className="text-neutral-100 text-lg font-light">
-                  {detalhesSolicitacoes.quantidade}
+                  {request.quantity}
                 </p>
               </div>
               <div>
                 <label className="text-neutral-400 text-sm">Medicamento</label>
                 <p className="text-neutral-100 text-lg font-light">
-                  {detalhesSolicitacoes.medicamento}
+                  {request.medication.name}
                 </p>
               </div>
             </div>
@@ -43,28 +75,30 @@ function SolicitacaoIndividual() {
             <div>
               <label className="text-neutral-400 text-sm">Solicitante</label>
               <p className="text-neutral-100 text-lg font-light">
-                {detalhesSolicitacoes.solicitante}
+                {request.hospital.username}
               </p>
             </div>
 
             <div>
               <label className="text-neutral-400 text-sm">Descrição</label>
               <p className="text-neutral-100 text-lg font-light">
-                {detalhesSolicitacoes.descricao}
+                {request.description}
               </p>
             </div>
 
             <div>
               <label className="text-neutral-400 text-sm">Prazo</label>
               <p className="text-neutral-100 text-lg font-light">
-                {detalhesSolicitacoes.prazo}
+                {dueDateInDays} dia
+                {dueDateInDays > 1 || (dueDateInDays < -1 && "s")}
               </p>
             </div>
           </div>
 
           <p className="text-base">
-            Criado por <u className="border-b border-black">Beatriz Vidal</u> às{" "}
-            {detalhesSolicitacoes.criadoData}
+            Criado por{" "}
+            <u className="border-b border-black">{request.hospital.username}</u>{" "}
+            às {new Date(request.created_at).toLocaleString("pt-BR")}
           </p>
         </div>
         <div className="md:w-1/5 w-full flex flex-col gap-6 ">
@@ -85,7 +119,6 @@ function SolicitacaoIndividual() {
               </option>
             </select>
           </div>
-
 
           <div className="space-y-2">
             <label className="text-neutral-400 text-sm">Data de Envio</label>

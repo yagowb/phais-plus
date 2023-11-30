@@ -10,6 +10,8 @@ function Home() {
   const navigate = useNavigate();
   const [modalAberturaIsActive, setModalAberturaIsActive] = useState(true);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   const closeModal = () => {
     setModalAberturaIsActive(false);
   };
@@ -75,7 +77,7 @@ function Home() {
         />
         <p className="text-neutral-200 text-lg font-medium mb-5 md:mb-4">
           Bem-vindo,{" "}
-          <span className="underline underline-offset-2">USERNAME!</span>
+          <span className="underline underline-offset-2">{user.username}!</span>
         </p>
         <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
           <Link

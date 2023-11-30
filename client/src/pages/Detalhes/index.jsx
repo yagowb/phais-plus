@@ -18,7 +18,6 @@ function Detalhes() {
       const { data: medicationResponse } = await getMedication(accessToken, id);
 
       setMedication(medicationResponse.data);
-      console.log(medicationResponse.data);
     })();
   }, []);
 
