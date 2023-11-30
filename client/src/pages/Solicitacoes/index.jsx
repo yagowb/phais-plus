@@ -1,15 +1,31 @@
+import { useState } from "react";
+import Modal from "react-modal";
+import { Plus, X, Search as IconSearch } from "lucide-react";
+
 import BaseLayout from "../../components/BaseLayout";
 import Search from "../../components/Input/Search";
 import Table from "../../components/Table";
 import Filter from "../../components/Filter";
 import Button from "../../components/Button";
+import { ModalAbrirSolicitacao } from "./ModalAbrirSolicitacao";
+import { ButtonTipoSolicitacao } from "./ButtonTipoSolicitacao";
 
-import { Plus } from "lucide-react";
-import { useState } from "react";
+import "./index.css";
+
+Modal.setAppElement("#root");
 
 function Solicitacoes() {
   const [tipoSolicitacao, setTipoSolicitacao] = useState(0);
   const tipos = ["Todas as solicitações", "Minhas solicitações", "Histórico"];
+  const [modalIsOpen, setIsOpen] = useState(false);
+
+  function openModal() {
+    setIsOpen(true);
+  }
+
+  function closeModal() {
+    setIsOpen(false);
+  }
 
   function setTipo(tipoIndex) {
     setTipoSolicitacao(tipoIndex);
@@ -141,9 +157,12 @@ function Solicitacoes() {
           color="primary"
           label="Criar Solicitação"
           size="sm"
+          onClick={openModal}
         >
           <Plus size={18} />
         </Button>
+
+        <ModalAbrirSolicitacao modalIsOpen={modalIsOpen} closeModal={closeModal} />
       </div>
 
       <div className="flex w-full text-neutral-300 mb-1">
@@ -168,17 +187,7 @@ function Solicitacoes() {
   );
 }
 
-function ButtonTipoSolicitacao({ handleFunction, isActive, label }) {
-  return (
-    <button
-      onClick={handleFunction}
-      className={`border-b-[2px] pb-0.5 px-4 ${
-        isActive ? "border-neutral-300" : "border-grays-disabled"
-      }`}
-    >
-      {label}
-    </button>
-  );
-}
+
+
 
 export default Solicitacoes;
