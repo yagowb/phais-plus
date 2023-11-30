@@ -6,5 +6,6 @@ const router = Router();
 const requestController = new RequestController();
 
 router.get("/", authMiddleware, requestController.index);
+router.post("/", authMiddleware, requestController.create);
 
 export { router };
