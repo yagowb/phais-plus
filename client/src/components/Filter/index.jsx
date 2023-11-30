@@ -40,7 +40,7 @@ const FilterBox = ({ onClose }) => {
       </div>
 
       <input
-        className="bg-bg-layer-hover border-none py-1 ps-2 rounded w-full text-sm placeholder-gray-400 outline-none focus:ring-1 focus:ring-green-dark"
+        className="bg-bg-layer-hover border-none py-1 ps-2 rounded w-full text-sm placeholder-neutral-400 outline-none focus:ring-1 focus:ring-green-dark"
         type="text"
         placeholder="Pesquisar..."
       />

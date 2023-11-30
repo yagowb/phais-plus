@@ -18,7 +18,7 @@ function Table({ titles, values, hasLinks }) {
   };
 
   return (
-    <div className="relative w-full overflow-x-auto h-fit scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700">
+    <div className="relative w-full overflow-x-auto h-fit scrollbar-thin scrollbar-thumb-neutral-600 scrollbar-track-neutral-700">
       <table className="w-full text-sm text-left text-neutral-300">
         <thead className="text-neutral-300 ">
           <tr>

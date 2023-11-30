@@ -19,7 +19,7 @@ export default function Admin() {
       "São Carlos - Washington",
       "saocarlos_washington@saocarlos.com",
       "+558598384295",
-      "09/06/2023"
+      "09/06/2023",
     ],
     [
       "/detalhes",
@@ -27,7 +27,7 @@ export default function Admin() {
       "São Carlos - Washington",
       "saocarlos_washington@saocarlos.com",
       "+558598384295",
-      "09/06/2023"
+      "09/06/2023",
     ],
     [
       "/detalhes",
@@ -35,7 +35,7 @@ export default function Admin() {
       "São Carlos - Washington",
       "saocarlos_washington@saocarlos.com",
       "+558598384295",
-      "09/06/2023"
+      "09/06/2023",
     ],
     [
       "/detalhes",
@@ -43,7 +43,7 @@ export default function Admin() {
       "São Carlos - Washington",
       "saocarlos_washington@saocarlos.com",
       "+558598384295",
-      "09/06/2023"
+      "09/06/2023",
     ],
     [
       "/detalhes",
@@ -51,21 +51,26 @@ export default function Admin() {
       "São Carlos - Washington",
       "saocarlos_washington@saocarlos.com",
       "+558598384295",
-      "09/06/2023"
+      "09/06/2023",
     ],
   ];
 
   return (
-    <BaseLayout>
-      <div className="flex flex-col gap-3">
+    <BaseLayout title="Requisições - Novos Pedidos">
+      <div className="flex flex-col gap-4">
         <div className="flex justify-between items-center">
-          <div className="flex gap-3 items-center">
-            <SearchInput size={20} bg="layer" id="table_search" name="table-search" />
+          <div className="flex gap-4 items-center">
+            <SearchInput
+              bg="layer"
+              id="table_search"
+              name="table-search"
+              className="h-5 w-5 aspect-square"
+            />
             <Filter strokeWidth={1.5} />
           </div>
 
-          <button className="px-3 py-1 bg-bg-layer flex gap-2 items-center rounded-sm hover:bg-bg-layer-hover">
-            <Clock size={17} />
+          <button className="px-4 py-2 bg-bg-layer flex gap-2 items-center rounded-sm hover:bg-bg-layer-hover">
+            <Clock className="h-4 w-4 aspect-square" />
             Histórico
           </button>
         </div>

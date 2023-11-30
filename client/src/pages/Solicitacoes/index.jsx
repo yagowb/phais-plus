@@ -146,7 +146,7 @@ function Solicitacoes() {
         </div>
       </div>
 
-      <div className="flex w-full text-neutral-300 mb-1 overflow-x-auto scrollbar-thin scrollbar-thumb-gray-600 scrollbar-track-gray-700">
+      <div className="flex w-full text-neutral-300 mb-1 overflow-x-auto scrollbar-thin scrollbar-thumb-neutral-600 scrollbar-track-neutral-700">
         {tipos.map((tipo, index) => {
           return (
             <ButtonTipoSolicitacao
@@ -159,7 +159,7 @@ function Solicitacoes() {
             />
           );
         })}
-        <div className="border-b-[2px] pb-0.5 flex-1 border-grays-disabled"></div>
+        <div className="border-b-[2px] pb-0.5 flex-1 border-neutrals-disabled"></div>
       </div>
 
       <Table
@@ -176,7 +176,7 @@ function ButtonTipoSolicitacao({ handleFunction, isActive, label }) {
     <button
       onClick={handleFunction}
       className={`border-b-[2px] pb-0.5 px-4 ${
-        isActive ? "border-neutral-300" : "border-grays-disabled"
+        isActive ? "border-neutral-300" : "border-neutrals-disabled"
       }`}
     >
       {label}
