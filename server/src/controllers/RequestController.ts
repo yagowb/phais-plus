@@ -345,4 +345,30 @@ export class RequestController {
       return res.status(500).json({ error: exception });
     }
   }
+
+  async destroy(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const foundRequest = await prisma.request.findUnique({
+        where: { id, deleted_at: null },
+      });
+
+      if (!foundRequest) {
+        return res.status(404).json({
+          error: "Request not found",
+          message: "Please provide the ID of an existing request.",
+        });
+      }
+
+      await prisma.request.update({
+        where: { id },
+        data: { deleted_at: new Date() },
+      });
+
+      return res.status(204).json({ message: "Request deleted successfully." });
+    } catch (exception) {
+      return res.status(500).json({ error: exception });
+    }
+  }
 }
