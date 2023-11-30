@@ -1,6 +1,6 @@
 import { api } from ".";
 
-export const getMedication = async (id, accessToken) => {
+export const getMedication = async (accessToken, id) => {
   return await api.get(`/medications/${id}`, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });

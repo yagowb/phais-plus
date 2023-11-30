@@ -132,7 +132,7 @@ export default function Admin() {
   }, []);
 
   if (!registers) {
-    return <></>;
+    return;
   }
 
   return (
