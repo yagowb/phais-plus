@@ -7,6 +7,7 @@ import Analise from "./pages/Analise";
 import Medicamentos from "./pages/Medicamentos";
 import Detalhes from "./pages/Detalhes";
 import Solicitacoes from "./pages/Solicitacoes";
+import Home from "./pages/Home";
 import Admin from "./pages/Admin/Requisicoes";
 
 import { Toaster } from "react-hot-toast";
@@ -21,24 +22,28 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
-    path: "/analise",
+    path: "analise",
     element: <Analise />,
   },
   {
-    path: "/medicamentos",
+    path: "medicamentos",
     element: <Medicamentos />,
   },
   {
-    path: "/detalhes",
+    path: "medicamentos/:id",
     element: <Detalhes />,
   },
   {
     path: "/solicitacoes",
     element: <Solicitacoes />,
+  },
+  {
+    path: "/home",
+    element: <Home />,
   },
   {
     path: "/admin",

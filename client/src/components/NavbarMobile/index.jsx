@@ -1,9 +1,9 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { MenuIcon } from "lucide-react";
 
-function NavbarMobile() {
+const NavbarMobile = () => {
   const [menuIsActive, setMenuIsActive] = useState(false);
 
   return (
@@ -15,7 +15,7 @@ function NavbarMobile() {
         className="hover:bg-bg-layer flex gap-1 items-center p-1 rounded cursor-pointer"
       >
         <MenuIcon size={32} color="rgb(229, 231, 235)" />
-        <span className="text-2xl font-medium text-gray-200">PHAIS+</span>
+        <span className="text-2xl font-medium text-neutral-200">PHAIS+</span>
       </button>
 
       <img
@@ -33,14 +33,19 @@ function NavbarMobile() {
       )}
     </nav>
   );
-}
+};
 
-function NavbarMobileItem({ text, path }) {
+const NavbarMobileItem = ({ text, path }) => {
+  const navigate = useNavigate();
+
   return (
-    <li className="hover:bg-bg-layer-hover w-full px-4 py-2 rounded cursor-pointer">
-      <Link to={path}> {text} </Link>
+    <li
+      className="hover:bg-bg-layer-hover w-full px-4 py-2 rounded cursor-pointer"
+      onClick={() => navigate(path)}
+    >
+      {text}
     </li>
   );
-}
+};
 
 export default NavbarMobile;

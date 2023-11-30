@@ -8,15 +8,17 @@ datasource db {
 }
 
 model Register {
-  id         String    @id @default(uuid())
-  cnpj       String    @unique
-  email      String
-  username   String
-  phone      String
-  approved   Boolean   @default(false)
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
+  id                 String    @id @default(uuid())
+  cnpj               String    @unique
+  email              String
+  username           String
+  phone              String
+  approved           Boolean   @default(false)
+  disapproved        Boolean   @default(false)
+  disapproval_reason String?
+  created_at         DateTime  @default(now())
+  updated_at         DateTime  @updatedAt
+  deleted_at         DateTime?
 
   @@map("registers")
 }
