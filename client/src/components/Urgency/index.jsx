@@ -1,4 +1,3 @@
-
 const Urgency = ({ urgency }) => {
   const urgencyColors = {
     baixa: "bg-urgencyColor-green",
@@ -9,7 +8,9 @@ const Urgency = ({ urgency }) => {
   const badgeColor = urgencyColors[urgency];
 
   return (
-    <span className={`inline-block py-2 px-4 rounded-full text-sm uppercase text-white ${badgeColor}`}>
+    <span
+      className={`inline-block py-2 px-4 rounded-full text-sm uppercase text-neutral-200 ${badgeColor}`}
+    >
       {urgency}
     </span>
   );
