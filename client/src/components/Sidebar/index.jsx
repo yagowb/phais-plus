@@ -30,8 +30,8 @@ export default function Sidebar({ setIsExpanded }) {
         />
         <button
           onClick={() => {
-            setExpanded((curr) => !curr)
-            setIsExpanded((curr) => !curr)
+            setExpanded((curr) => !curr);
+            setIsExpanded((curr) => !curr);
           }}
           className="p-1.5 rounded-lg bg-bg-layer hover:bg-bg-layer-hover"
         >
@@ -83,8 +83,8 @@ export default function Sidebar({ setIsExpanded }) {
           `}
         >
           <div className="leading-4">
-            <h4 className="font-semibold text-gray-200">Beatriz Vidal</h4>
-            <span className="text-xs text-gray-300">
+            <h4 className="font-semibold text-neutral-200">Beatriz Vidal</h4>
+            <span className="text-xs text-neutral-300">
               beatrizvidal@gmail.com
             </span>
           </div>
@@ -99,10 +99,7 @@ export function SidebarItem({ icon, text, active, path }) {
   const { expanded } = useContext(SidebarContext);
 
   return (
-    <li
-      className={`
-        relative`}
-    >
+    <li className={`relative`}>
       <Link
         to={path}
         className={`
@@ -111,8 +108,8 @@ export function SidebarItem({ icon, text, active, path }) {
         transition-colors group
         ${
           active
-            ? "bg-bg-layer hover:bg-bg-layer-hover text-gray-200"
-            : "hover:bg-bg-layer-hover text-gray-200"
+            ? "bg-bg-layer hover:bg-bg-layer-hover text-neutral-200"
+            : "hover:bg-bg-layer-hover text-neutral-200"
         }
     `}
       >

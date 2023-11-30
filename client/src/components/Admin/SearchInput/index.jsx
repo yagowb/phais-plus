@@ -10,7 +10,7 @@ function SearchInput({ bg = "main", size = 10, id, name }) {
         id={id}
         placeholder="Pesquisar..."
       />
-      <Search className="absolute top-1.5 right-2" size={19} />
+      <Search className="h-5 w-5 aspect-square absolute top-1.5 right-2" />
     </div>
   );
 }

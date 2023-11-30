@@ -56,7 +56,7 @@ function Solicitacoes() {
   let tableValues = [
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -66,7 +66,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -76,7 +76,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -86,7 +86,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -96,7 +96,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -108,7 +108,7 @@ function Solicitacoes() {
     ],
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#027",
         "20",
         "Simeticona 40mg",
@@ -118,7 +118,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#024",
         "50",
         "Dipirona",
@@ -130,7 +130,7 @@ function Solicitacoes() {
     ],
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "20",
         "Simeticona 40mg",
@@ -144,9 +144,9 @@ function Solicitacoes() {
 
   return (
     <BaseLayout pageName="Solicitações">
-      <div className="flex w-full items-center justify-between mb-4">
-        <div className="relative flex items-center w-10/12 md:w-fit gap-x-2">
-          <Search />
+      <div className="flex w-full items-center justify-between gap-2 mb-4">
+        <div className="flex items-center w-full md:w-fit gap-x-2">
+          <Search placeholder="Pesquisar solicitações" />
 
           <Filter />
         </div>
@@ -162,12 +162,14 @@ function Solicitacoes() {
           <Plus size={18} />
         </Button>
 
-        <ModalAbrirSolicitacao modalIsOpen={modalIsOpen} closeModal={closeModal} />
+        <ModalAbrirSolicitacao
+          modalIsOpen={modalIsOpen}
+          closeModal={closeModal}
+        />
       </div>
 
-      <div className="flex w-full text-neutral-300 mb-1">
+      <div className="flex w-full text-neutral-300 mb-1 overflow-x-auto scrollbar-thin scrollbar-thumb-neutral-600 scrollbar-track-neutral-700">
         {tipos.map((tipo, index) => {
-          console.log(index);
           return (
             <ButtonTipoSolicitacao
               key={index}
@@ -179,15 +181,16 @@ function Solicitacoes() {
             />
           );
         })}
-        <div className="border-b-[2px] pb-0.5 flex-1 border-grays-disabled"></div>
+        <div className="border-b-[2px] pb-0.5 flex-1 border-grays-disabled" />
       </div>
 
-      <Table titles={tableTitles[tipoSolicitacao]} values={tableValues[tipoSolicitacao]} hasLinks />
+      <Table
+        titles={tableTitles[tipoSolicitacao]}
+        values={tableValues[tipoSolicitacao]}
+        hasLinks
+      />
     </BaseLayout>
   );
 }
-
-
-
 
 export default Solicitacoes;
