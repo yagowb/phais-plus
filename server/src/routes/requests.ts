@@ -6,6 +6,7 @@ const router = Router();
 const requestController = new RequestController();
 
 router.get("/", authMiddleware, requestController.index);
+router.get("/:id", authMiddleware, requestController.view);
 router.post("/", authMiddleware, requestController.create);
 router.patch("/:id", authMiddleware, requestController.partialUpdate);
 router.put("/:id", authMiddleware, requestController.fullUpdate);

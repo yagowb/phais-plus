@@ -32,6 +32,43 @@ export class RequestController {
     }
   }
 
+  async view(req: Request, res: Response) {
+    try {
+      const { id } = req.params;
+
+      const foundRequest = await prisma.request.findUnique({
+        where: { id, deleted_at: null },
+        select: {
+          id: true,
+          hospital: true,
+          medication: true,
+          priority: true,
+          status: true,
+          quantity: true,
+          description: true,
+          due_date: true,
+          return_date: true,
+          created_at: true,
+          updated_at: true,
+        },
+      });
+
+      if (!foundRequest) {
+        return res.status(404).json({
+          error: "Request not found",
+          message: "A request with the provided ID does not exist.",
+        });
+      }
+
+      return res.status(200).json({
+        message: "Request found sucessfully.",
+        data: foundRequest,
+      });
+    } catch (exception) {
+      return res.status(500).json({ error: exception });
+    }
+  }
+
   async create(req: Request, res: Response) {
     try {
       const {
