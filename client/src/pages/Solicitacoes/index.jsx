@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Modal from "react-modal";
 import { Plus, X, Search as IconSearch } from "lucide-react";
 
@@ -9,15 +9,16 @@ import Filter from "../../components/Filter";
 import Button from "../../components/Button";
 import { ModalAbrirSolicitacao } from "./ModalAbrirSolicitacao";
 import { ButtonTipoSolicitacao } from "./ButtonTipoSolicitacao";
+import { getRequests } from "../../services/api/request";
 
 import "./index.css";
 
 Modal.setAppElement("#root");
 
 function Solicitacoes() {
-  const [tipoSolicitacao, setTipoSolicitacao] = useState(0);
-  const tipos = ["Todas as solicitações", "Minhas solicitações", "Histórico"];
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [requests, setRequests] = useState(null);
+  const [tipoSolicitacao, setTipoSolicitacao] = useState(0);
 
   function openModal() {
     setIsOpen(true);
@@ -31,116 +32,153 @@ function Solicitacoes() {
     setTipoSolicitacao(tipoIndex);
   }
 
-  let tableTitles = [
-    ["Código", "Hospital", "Quantidade", "Item", "Data", "Urgência", "Status"],
-    [
-      "Código",
-      "Quantidade",
-      "Item",
-      "Aberto em",
-      "Receber em",
-      "Atendente",
-      "Status",
-    ],
-    [
-      "Código",
-      "Quantidade",
-      "Item",
-      "Aberto em",
-      "Concluído em",
-      "Solicitante",
-      "Atendente",
-    ],
+  const tipos = [
+    "Todas as solicitações",
+    // "Minhas solicitações",
+    // "Histórico"
   ];
 
-  let tableValues = [
-    [
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-    ],
-    [
-      [
-        "/solicitacao-individual",
-        "#027",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "09/10",
-        "São Carlos",
-        "Aberto",
-      ],
-      [
-        "/solicitacao-individual",
-        "#024",
-        "50",
-        "Dipirona",
-        "02/05 16:34",
-        "02/09",
-        "São Carlos",
-        "Em negociação",
-      ],
-    ],
-    [
-      [
-        "/solicitacao-individual",
-        "#123",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "09/10 15:30",
-        "Unimed Sul",
-        "São Carlos",
-      ],
-    ],
+  const titles = [
+    ["Código", "Hospital", "Quantidade", "Item", "Data", "Urgência", "Status"],
+    // [
+    //   "Código",
+    //   "Quantidade",
+    //   "Item",
+    //   "Aberto em",
+    //   "Receber em",
+    //   "Atendente",
+    //   "Status",
+    // ],
+    // [
+    //   "Código",
+    //   "Quantidade",
+    //   "Item",
+    //   "Aberto em",
+    //   "Concluído em",
+    //   "Solicitante",
+    //   "Atendente",
+    // ],
   ];
+
+  const tableValues = [
+    [
+      [
+        "/solicitacao-individual",
+        "#123",
+        "Unimed Sul",
+        "20",
+        "Simeticona 40mg",
+        "09/06 16:34",
+        "URGENTE",
+        "Aberto",
+      ],
+      [
+        "/solicitacao-individual",
+        "#123",
+        "Unimed Sul",
+        "20",
+        "Simeticona 40mg",
+        "09/06 16:34",
+        "URGENTE",
+        "Aberto",
+      ],
+      [
+        "/solicitacao-individual",
+        "#123",
+        "Unimed Sul",
+        "20",
+        "Simeticona 40mg",
+        "09/06 16:34",
+        "URGENTE",
+        "Aberto",
+      ],
+      [
+        "/solicitacao-individual",
+        "#123",
+        "Unimed Sul",
+        "20",
+        "Simeticona 40mg",
+        "09/06 16:34",
+        "URGENTE",
+        "Aberto",
+      ],
+      [
+        "/solicitacao-individual",
+        "#123",
+        "Unimed Sul",
+        "20",
+        "Simeticona 40mg",
+        "09/06 16:34",
+        "URGENTE",
+        "Aberto",
+      ],
+    ],
+    // [
+    //   [
+    //     "/solicitacao-individual",
+    //     "#027",
+    //     "20",
+    //     "Simeticona 40mg",
+    //     "09/06 16:34",
+    //     "09/10",
+    //     "São Carlos",
+    //     "Aberto",
+    //   ],
+    //   [
+    //     "/solicitacao-individual",
+    //     "#024",
+    //     "50",
+    //     "Dipirona",
+    //     "02/05 16:34",
+    //     "02/09",
+    //     "São Carlos",
+    //     "Em negociação",
+    //   ],
+    // ],
+    // [
+    //   [
+    //     "/solicitacao-individual",
+    //     "#123",
+    //     "20",
+    //     "Simeticona 40mg",
+    //     "09/06 16:34",
+    //     "09/10 15:30",
+    //     "Unimed Sul",
+    //     "São Carlos",
+    //   ],
+    // ],
+  ];
+
+  useEffect(() => {
+    (async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
+      const { data: requestsResponse } = await getRequests(accessToken);
+
+      const allRequests = requestsResponse.data.map(
+        ({
+          id,
+          hospital,
+          quantity,
+          medication,
+          due_date,
+          priority,
+          status,
+        }) => [
+          `/solicitacoes/${id}`,
+          id.substring(0, 8),
+          hospital.username,
+          quantity,
+          medication.name,
+          new Date(due_date).toLocaleDateString("pt-BR"),
+          priority.name,
+          status.name,
+        ]
+      );
+
+      setRequests([allRequests]);
+    })();
+  }, []);
 
   return (
     <BaseLayout pageName="Solicitações">
@@ -184,11 +222,13 @@ function Solicitacoes() {
         <div className="border-b-[2px] pb-0.5 flex-1 border-grays-disabled" />
       </div>
 
-      <Table
-        titles={tableTitles[tipoSolicitacao]}
-        values={tableValues[tipoSolicitacao]}
-        hasLinks
-      />
+      {requests && (
+        <Table
+          titles={titles[tipoSolicitacao]}
+          values={requests[tipoSolicitacao]}
+          hasLinks
+        />
+      )}
     </BaseLayout>
   );
 }

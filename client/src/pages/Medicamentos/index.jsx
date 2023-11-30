@@ -28,23 +28,20 @@ function Medicamentos() {
       const { data: medicationsResponse } = await getMedications(accessToken);
 
       const foundMedications = medicationsResponse.data.map(
-        (
-          {
-            id,
-            name,
-            active_principle,
-            prescription,
-            medication_type,
-            laboratory,
-          },
-          index
-        ) => [
+        ({
+          id,
+          name,
+          active_principle,
+          prescription,
+          medication_type,
+          laboratory,
+        }) => [
           `/medicamentos/${id}`,
           id.substring(0, 8),
           name,
           active_principle?.name,
           prescription?.name,
-          "name" in medication_type && (
+          medication_type && "name" in medication_type && (
             <MedicationType type={(medication_type?.name[0]).toUpperCase()} />
           ),
           laboratory?.name,

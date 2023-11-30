@@ -9,6 +9,6 @@
 }
 
 html {
-  @apply bg-bg-main;
+  @apply bg-bg-main text-neutral-200;
   font-family: "Source Sans Pro", sans-serif;
 }

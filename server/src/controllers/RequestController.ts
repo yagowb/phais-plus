@@ -15,6 +15,9 @@ export class RequestController {
           priority: true,
           status: true,
           quantity: true,
+          description: true,
+          due_date: true,
+          return_date: true,
           created_at: true,
           updated_at: true,
         },
@@ -31,8 +34,16 @@ export class RequestController {
 
   async create(req: Request, res: Response) {
     try {
-      const { hospital_id, medication_id, priority_id, status_id, quantity } =
-        req.body;
+      const {
+        hospital_id,
+        medication_id,
+        priority_id,
+        status_id,
+        quantity,
+        description,
+        due_date,
+        return_date,
+      } = req.body;
 
       if (
         !hospital_id ||
@@ -40,7 +51,10 @@ export class RequestController {
         !priority_id ||
         !status_id ||
         !quantity ||
-        quantity <= 0
+        quantity <= 0 ||
+        !description ||
+        !due_date ||
+        !return_date
       ) {
         return res.status(400).json({
           error: "Missing or invalid data",
@@ -93,7 +107,16 @@ export class RequestController {
       }
 
       const createdRequest = await prisma.request.create({
-        data: { hospital_id, medication_id, priority_id, status_id, quantity },
+        data: {
+          hospital_id,
+          medication_id,
+          priority_id,
+          status_id,
+          quantity,
+          description,
+          due_date: new Date(due_date),
+          return_date: new Date(return_date),
+        },
         select: {
           id: true,
           hospital: true,
@@ -101,6 +124,9 @@ export class RequestController {
           priority: true,
           status: true,
           quantity: true,
+          description: true,
+          due_date: true,
+          return_date: true,
           created_at: true,
           updated_at: true,
         },
@@ -118,15 +144,26 @@ export class RequestController {
   async partialUpdate(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { hospital_id, medication_id, priority_id, status_id, quantity } =
-        req.body;
+      const {
+        hospital_id,
+        medication_id,
+        priority_id,
+        status_id,
+        quantity,
+        description,
+        due_date,
+        return_date,
+      } = req.body;
 
       if (
         !hospital_id &&
         !medication_id &&
         !priority_id &&
         !status_id &&
-        (!quantity || quantity <= 0)
+        (!quantity || quantity <= 0) &&
+        !description &&
+        !due_date &&
+        !return_date
       ) {
         return res.status(400).json({
           error: "Missing or invalid data",
@@ -139,7 +176,10 @@ export class RequestController {
         medication_id === null ||
         priority_id === null ||
         status_id === null ||
-        quantity === null
+        quantity === null ||
+        description === null ||
+        due_date === null ||
+        return_date === null
       ) {
         return res.status(400).json({
           error: "Incomplete information",
@@ -212,7 +252,16 @@ export class RequestController {
 
       const updatedRequest = await prisma.request.update({
         where: { id },
-        data: { hospital_id, medication_id, priority_id, status_id, quantity },
+        data: {
+          hospital_id,
+          medication_id,
+          priority_id,
+          status_id,
+          quantity,
+          description,
+          due_date: new Date(due_date),
+          return_date: new Date(return_date),
+        },
         select: {
           id: true,
           hospital: true,
@@ -220,6 +269,9 @@ export class RequestController {
           priority: true,
           status: true,
           quantity: true,
+          description: true,
+          due_date: true,
+          return_date: true,
           created_at: true,
           updated_at: true,
         },
@@ -237,8 +289,16 @@ export class RequestController {
   async fullUpdate(req: Request, res: Response) {
     try {
       const { id } = req.params;
-      const { hospital_id, medication_id, priority_id, status_id, quantity } =
-        req.body;
+      const {
+        hospital_id,
+        medication_id,
+        priority_id,
+        status_id,
+        quantity,
+        description,
+        due_date,
+        return_date,
+      } = req.body;
 
       if (
         !hospital_id ||
@@ -246,24 +306,14 @@ export class RequestController {
         !priority_id ||
         !status_id ||
         !quantity ||
-        quantity <= 0
+        quantity <= 0 ||
+        !description ||
+        !due_date ||
+        !return_date
       ) {
         return res.status(400).json({
           error: "Missing or invalid data",
           message: "Please provide all required fields to update.",
-        });
-      }
-
-      if (
-        hospital_id === null ||
-        medication_id === null ||
-        priority_id === null ||
-        status_id === null ||
-        quantity === null
-      ) {
-        return res.status(400).json({
-          error: "Incomplete information",
-          message: "None of these fields can be null.",
         });
       }
 
@@ -324,7 +374,16 @@ export class RequestController {
 
       const updatedRequest = await prisma.request.update({
         where: { id },
-        data: { hospital_id, medication_id, priority_id, status_id, quantity },
+        data: {
+          hospital_id,
+          medication_id,
+          priority_id,
+          status_id,
+          quantity,
+          description,
+          due_date: new Date(due_date),
+          return_date: new Date(return_date),
+        },
         select: {
           id: true,
           hospital: true,
@@ -332,6 +391,9 @@ export class RequestController {
           priority: true,
           status: true,
           quantity: true,
+          description: true,
+          due_date: true,
+          return_date: true,
           created_at: true,
           updated_at: true,
         },
