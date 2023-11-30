@@ -118,7 +118,9 @@ export default function Admin() {
               register.username,
               register.email,
               register.phone,
-              new Date(register.created_at).toLocaleDateString("pt-BR"),
+              new Date(register.created_at).toLocaleDateString("pt-BR", {
+                timeZone: "utc",
+              }),
               <div className="flex gap-4">
                 {renderApproveButton(register)}
                 {renderDisapproveButton(register)}

@@ -38,7 +38,6 @@ export class MedicationController {
         data: foundMedications,
       });
     } catch (exception) {
-      console.log(exception);
       return res.status(500).json({ error: exception });
     }
   }

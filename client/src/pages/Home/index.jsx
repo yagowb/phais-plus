@@ -16,6 +16,7 @@ function Home() {
 
   const logOut = () => {
     localStorage.removeItem("accessToken");
+    localStorage.removeItem("user");
     navigate("/login");
   };
 

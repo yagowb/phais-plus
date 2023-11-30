@@ -36,6 +36,7 @@ function Login() {
 
       const { data: authResponse } = await authenticate({ cnpj, password });
       localStorage.setItem("accessToken", authResponse.data.token);
+      localStorage.setItem("user", JSON.stringify(authResponse.data.user));
       navigate("/home");
 
       toast.success("Usuário autenticado com sucesso!");

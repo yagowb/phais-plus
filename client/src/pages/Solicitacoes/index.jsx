@@ -60,94 +60,120 @@ function Solicitacoes() {
     // ],
   ];
 
-  const tableValues = [
-    [
+  // const tableValues = [
+  //   [
+  //     [
+  //       "/solicitacao-individual",
+  //       "#123",
+  //       "Unimed Sul",
+  //       "20",
+  //       "Simeticona 40mg",
+  //       "09/06 16:34",
+  //       "URGENTE",
+  //       "Aberto",
+  //     ],
+  //     [
+  //       "/solicitacao-individual",
+  //       "#123",
+  //       "Unimed Sul",
+  //       "20",
+  //       "Simeticona 40mg",
+  //       "09/06 16:34",
+  //       "URGENTE",
+  //       "Aberto",
+  //     ],
+  //     [
+  //       "/solicitacao-individual",
+  //       "#123",
+  //       "Unimed Sul",
+  //       "20",
+  //       "Simeticona 40mg",
+  //       "09/06 16:34",
+  //       "URGENTE",
+  //       "Aberto",
+  //     ],
+  //     [
+  //       "/solicitacao-individual",
+  //       "#123",
+  //       "Unimed Sul",
+  //       "20",
+  //       "Simeticona 40mg",
+  //       "09/06 16:34",
+  //       "URGENTE",
+  //       "Aberto",
+  //     ],
+  //     [
+  //       "/solicitacao-individual",
+  //       "#123",
+  //       "Unimed Sul",
+  //       "20",
+  //       "Simeticona 40mg",
+  //       "09/06 16:34",
+  //       "URGENTE",
+  //       "Aberto",
+  //     ],
+  //   ],
+  // [
+  //   [
+  //     "/solicitacao-individual",
+  //     "#027",
+  //     "20",
+  //     "Simeticona 40mg",
+  //     "09/06 16:34",
+  //     "09/10",
+  //     "São Carlos",
+  //     "Aberto",
+  //   ],
+  //   [
+  //     "/solicitacao-individual",
+  //     "#024",
+  //     "50",
+  //     "Dipirona",
+  //     "02/05 16:34",
+  //     "02/09",
+  //     "São Carlos",
+  //     "Em negociação",
+  //   ],
+  // ],
+  // [
+  //   [
+  //     "/solicitacao-individual",
+  //     "#123",
+  //     "20",
+  //     "Simeticona 40mg",
+  //     "09/06 16:34",
+  //     "09/10 15:30",
+  //     "Unimed Sul",
+  //     "São Carlos",
+  //   ],
+  // ],
+  // ];
+
+  const addRequest = ({
+    id,
+    hospital,
+    quantity,
+    medication,
+    due_date,
+    priority,
+    status,
+  }) => {
+    setRequests((previous) => [
       [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
+        ...previous[0],
+        [
+          `/solicitacoes/${id}`,
+          id.substring(0, 8),
+          hospital.username,
+          quantity,
+          medication.name,
+          new Date(due_date).toLocaleDateString("pt-BR", { timeZone: "utc" }),
+          priority.name,
+          status.name,
+        ],
       ],
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-      [
-        "/solicitacao-individual",
-        "#123",
-        "Unimed Sul",
-        "20",
-        "Simeticona 40mg",
-        "09/06 16:34",
-        "URGENTE",
-        "Aberto",
-      ],
-    ],
-    // [
-    //   [
-    //     "/solicitacao-individual",
-    //     "#027",
-    //     "20",
-    //     "Simeticona 40mg",
-    //     "09/06 16:34",
-    //     "09/10",
-    //     "São Carlos",
-    //     "Aberto",
-    //   ],
-    //   [
-    //     "/solicitacao-individual",
-    //     "#024",
-    //     "50",
-    //     "Dipirona",
-    //     "02/05 16:34",
-    //     "02/09",
-    //     "São Carlos",
-    //     "Em negociação",
-    //   ],
-    // ],
-    // [
-    //   [
-    //     "/solicitacao-individual",
-    //     "#123",
-    //     "20",
-    //     "Simeticona 40mg",
-    //     "09/06 16:34",
-    //     "09/10 15:30",
-    //     "Unimed Sul",
-    //     "São Carlos",
-    //   ],
-    // ],
-  ];
+    ]);
+  };
 
   useEffect(() => {
     (async () => {
@@ -170,7 +196,7 @@ function Solicitacoes() {
           hospital.username,
           quantity,
           medication.name,
-          new Date(due_date).toLocaleDateString("pt-BR"),
+          new Date(due_date).toLocaleDateString("pt-BR", { timeZone: "utc" }),
           priority.name,
           status.name,
         ]
@@ -203,6 +229,7 @@ function Solicitacoes() {
         <ModalAbrirSolicitacao
           modalIsOpen={modalIsOpen}
           closeModal={closeModal}
+          addRequest={addRequest}
         />
       </div>
 
