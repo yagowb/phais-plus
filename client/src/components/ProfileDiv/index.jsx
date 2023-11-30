@@ -1,9 +1,17 @@
 import { PenSquare } from "lucide-react";
 
-export const ProfileDiv = ({title, children})=> {
-    return <div className="grid grid-cols-[9fr_minmax(200px,_1fr)] grid-rows-2">
-        <div className="bg-blue">{title}</div>
-        <div className="flex items-center justify-end bg-yellow row-span-2 gap-3">Editar <PenSquare/></div>
-        <div className="bg-red">{children}</div>
+export const ProfileDiv = ({ title, children }) => {
+  return (
+    <div className="flex w-full items-center justify-between bg-bg-layer p-6 rounded-md">
+      <div className="space-y-2">
+        <h1 className="text-lg font-semibold">{title}</h1>
+        <div className="space-y-2">{children}</div>
+      </div>
+
+      <div className="flex items-center gap-3 text-lg cursor-pointer">
+        Editar
+        <PenSquare />
+      </div>
     </div>
-}
+  );
+};
