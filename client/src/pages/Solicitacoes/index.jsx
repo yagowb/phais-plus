@@ -40,7 +40,7 @@ function Solicitacoes() {
   let tableValues = [
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -50,7 +50,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -60,7 +60,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -70,7 +70,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -80,7 +80,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -92,7 +92,7 @@ function Solicitacoes() {
     ],
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#027",
         "20",
         "Simeticona 40mg",
@@ -102,7 +102,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#024",
         "50",
         "Dipirona",
@@ -114,7 +114,7 @@ function Solicitacoes() {
     ],
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "20",
         "Simeticona 40mg",
