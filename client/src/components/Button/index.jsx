@@ -1,25 +1,24 @@
 import { Link } from "react-router-dom";
 
-function Button({ children, label, type, redirect, color, size = "lg", ...properties }) {
-  let colorStyle =
+function Button({ to, label, color, size, children, ...otherProps }) {
+  const colorStyle =
     color === "primary"
       ? "bg-green-dark hover:bg-green-dark hover:bg-opacity-80"
       : "bg-bg-main hover:bg-bg-main hover:bg-opacity-80";
-  
-  let sizeStyle = "px-14 py-3.5"
-  if(size === "sm"){
-    sizeStyle= "px-7 py-2"
+
+  let sizeStyle = "py-3 sm:py-4 sm:px-8";
+  if (size === "sm") {
+    sizeStyle = "py-2 sm:py-3 sm:px-6";
   }
 
   return (
     <Link
-      to={redirect}
-      type={type}
-      className={`inline-flex items-center justify-center gap-2 rounded-lg ${sizeStyle} font-medium text-white ${colorStyle}`}
-      {...properties}
+      to={to}
+      className={`text-white text-lg font-medium w-full flex items-center justify-center rounded-lg gap-2 sm:w-fit ${colorStyle} ${sizeStyle}`}
+      {...otherProps}
     >
       {children}
-      {label}
+      <p className="text-center whitespace-nowrap">{label}</p>
     </Link>
   );
 }

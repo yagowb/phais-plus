@@ -128,27 +128,26 @@ function Solicitacoes() {
 
   return (
     <BaseLayout pageName="Solicitações">
-      <div className="flex w-full items-center justify-between mb-4">
-        <div className="relative flex items-center w-10/12 md:w-fit gap-x-2">
-          <Search />
+      <div className="flex w-full items-center justify-between gap-2 mb-4">
+        <div className="flex items-center w-full md:w-fit gap-x-2">
+          <Search placeholder="Pesquisar solicitações" />
 
           <Filter />
         </div>
 
-        <Button
-          redirect="/solicitacoes"
-          type="button"
-          color="primary"
-          label="Criar Solicitação"
-          size="sm"
-        >
-          <Plus size={18} />
-        </Button>
+        <div className="hidden sm:block">
+          <Button label="Criar Solicitação" color="primary" size="sm">
+            <Plus className="h-5 w-5 aspect-square" />
+          </Button>
+        </div>
+
+        <div className="bg-green-main h-16 w-16 rounded-full flex items-center justify-center absolute bottom-8 right-6 z-50 transition-transform hover:scale-105 hover:cursor-pointer sm:hidden">
+          <Plus className="h-8 w-8 aspect-square" />
+        </div>
       </div>
 
-      <div className="flex w-full text-neutral-300 mb-1">
+      <div className="flex w-full text-neutral-300 mb-1 overflow-x-auto scrollbar-thin scrollbar-thumb-neutral-600 scrollbar-track-neutral-700">
         {tipos.map((tipo, index) => {
-          console.log(index);
           return (
             <ButtonTipoSolicitacao
               key={index}
@@ -160,10 +159,14 @@ function Solicitacoes() {
             />
           );
         })}
-        <div className="border-b-[2px] pb-0.5 flex-1 border-grays-disabled"></div>
+        <div className="border-b-[2px] pb-0.5 flex-1 border-neutrals-disabled"></div>
       </div>
 
-      <Table titles={tableTitles[tipoSolicitacao]} values={tableValues[tipoSolicitacao]} hasLinks />
+      <Table
+        titles={tableTitles[tipoSolicitacao]}
+        values={tableValues[tipoSolicitacao]}
+        hasLinks
+      />
     </BaseLayout>
   );
 }
@@ -173,7 +176,7 @@ function ButtonTipoSolicitacao({ handleFunction, isActive, label }) {
     <button
       onClick={handleFunction}
       className={`border-b-[2px] pb-0.5 px-4 ${
-        isActive ? "border-neutral-300" : "border-grays-disabled"
+        isActive ? "border-neutral-300" : "border-neutrals-disabled"
       }`}
     >
       {label}

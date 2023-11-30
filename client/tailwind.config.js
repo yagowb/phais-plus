@@ -3,13 +3,6 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
-      screens: {
-        xs: "400px",
-        sm: "480px",
-        md: "768px",
-        lg: "976px",
-        xl: "1440px",
-      },
       colors: {
         bg: {
           main: "#2C3A3B",
@@ -44,21 +37,18 @@ export default {
           main: "#A1A1AA",
           sec: "#F4F4F5",
         },
+        medication: {
+          generic: "#B1752E",
+          reference: "#2C5CA6",
+          similar: "#2E875C",
+          other: "#707D89",
+        },
       },
       borderRadius: {
         "4xl": "2rem",
       },
       divideColor: {
         "custom-divide": "rgba(170, 219, 206, 0.40)",
-      },
-      fontSize: {
-        "12px": "12px",
-        "14px": "14px",
-        "16px": "16px",
-        "18px": "18px",
-        "20px": "20px",
-        "24px": "24px",
-        "32px": "32px",
       },
     },
   },
