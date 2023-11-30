@@ -40,7 +40,7 @@ function Solicitacoes() {
   let tableValues = [
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -50,7 +50,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -60,7 +60,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -70,7 +70,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -80,7 +80,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "Unimed Sul",
         "20",
@@ -92,7 +92,7 @@ function Solicitacoes() {
     ],
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#027",
         "20",
         "Simeticona 40mg",
@@ -102,7 +102,7 @@ function Solicitacoes() {
         "Aberto",
       ],
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#024",
         "50",
         "Dipirona",
@@ -114,7 +114,7 @@ function Solicitacoes() {
     ],
     [
       [
-        "/detalhes",
+        "/solicitacao-individual",
         "#123",
         "20",
         "Simeticona 40mg",
@@ -159,7 +159,7 @@ function Solicitacoes() {
             />
           );
         })}
-        <div className="border-b-[2px] pb-0.5 flex-1 border-neutrals-disabled"></div>
+        <div className="border-b-[2px] pb-0.5 flex-1 border-grays-disabled"></div>
       </div>
 
       <Table
@@ -176,7 +176,7 @@ function ButtonTipoSolicitacao({ handleFunction, isActive, label }) {
     <button
       onClick={handleFunction}
       className={`border-b-[2px] pb-0.5 px-4 ${
-        isActive ? "border-neutral-300" : "border-neutrals-disabled"
+        isActive ? "border-neutral-300" : "border-grays-disabled"
       }`}
     >
       {label}
