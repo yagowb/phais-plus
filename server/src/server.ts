@@ -3,6 +3,7 @@ import express from "express";
 
 import { router as userRouter } from "./routes/users";
 import { router as registerRouter } from "./routes/registers";
+import { router as requestRouter } from "./routes/requests";
 import { router as medicationRouter } from "./routes/medications";
 import { router as authRouter } from "./routes/auth";
 
@@ -13,7 +14,8 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/users", userRouter);
-app.use("/registers", registerRouter); 
+app.use("/registers", registerRouter);
+app.use("/requests", requestRouter);
 app.use("/medications", medicationRouter);
 app.use("/auth", authRouter);
 
