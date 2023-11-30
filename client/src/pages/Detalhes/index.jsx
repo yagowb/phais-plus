@@ -1,94 +1,257 @@
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+
 import BaseLayout from "./../../components/BaseLayout";
-import riscoImg from "/risco.svg";
-import receitaTipo from "/receita-tipo.svg";
+import { Back } from "../../components/Back";
+import { MedicationType } from "../../components/MedicationType";
+import { getMedication } from "../../services/api/medication";
 
-import { detalhesMedicamentos } from "../../mocks/detalhesMedicamentos";
-import { ContainerItem, InfoItem, PresentationItem} from "./DetailItem";
-import DetailSection from "./DetailSection";
+const cod = "#123";
+const nome = "TOPISON";
+const principioAtivo = "Furoato de mometasona";
 
-function Detalhes() {
+const gruposFarm = [
+  "Corticosteroides tópicos (glicocorticóides tópicos)",
+  "Hormônios suprarrenais tópicos",
+  "Anti-inflamatórios esteroides",
+  "Antipruriginosos tópicos",
+];
+
+const indicTerap = [
+  "Dermatites e dermatoses (uso tópico)",
+  "Dermatite atópica (Eczema alérgico)",
+  "Psoríase",
+  "Pruridos (Coceiras)",
+  "Infecções e/ou Inflamações da pele e mucosas (medicação tópica ou específica)",
+];
+const risco =
+  "Não foram realizados estudos em animais e nem em mulheres grávidas; ou então, os estudos em animais revelaram risco, mas não existem estudos disponíveis realizados em mulheres grávidas.";
+const dataAnvisa = "28/08/2003";
+const receita = "Receita Comum";
+const lab = ["Libbs"];
+const genericos = [
+  { nome: "Fureato de mometasona", fabricante: "Medley" },
+  { nome: "Fureato de mometasona", fabricante: "Germed" },
+  { nome: "Fureato de mometasona", fabricante: "Biosintética" },
+  // ... outros genéricos com suas informações
+];
+
+const similares = [
+  { nome: "M-Lix", fabricante: "Mantecorp" },
+  { nome: "Topliv", fabricante: "Neo Química" },
+  { nome: "Elocom", fabricante: "Schering-Plough" },
+  { nome: "Resgat", fabricante: "Ache" },
+];
+
+const Detalhes = () => {
+  const { id } = useParams();
+  const [medication, setMedication] = useState(null);
+
+  useEffect(() => {
+    (async () => {
+      const accessToken = localStorage.getItem("accessToken");
+
+      const { data: medicationResponse } = await getMedication(id, accessToken);
+
+      setMedication(medicationResponse.data);
+    })();
+  }, []);
+
+  if (!medication) {
+    return <></>;
+  }
+
   return (
-    <BaseLayout pageName="Detalhes do medicamento" backPath="/medicamentos" style="p-8">
-      
-        {/* Titulo */}
-        <div className="w-full flex items-center gap-4">
-          <p className="text-2xl">{detalhesMedicamentos.cod + " - " + detalhesMedicamentos.nome}</p>
-          <img
-            src={receitaTipo}
-            alt="Sua Imagem"
-            className="w-8 h-8"
+    <BaseLayout pageName="Detalhes do medicamento">
+      <Back to="/medicamentos" position="right" />
+
+      <div className="rounded-lg flex w-full flex-col bg-bg-main">
+        <div className="w-full bg-bg-main flex items-center justify-start gap-8 mb-6">
+          <p className="text-xl">
+            <span className="text-green-light">
+              {medication.id.substring(0, 8)}
+            </span>{" "}
+            - {medication.name}
+          </p>
+          <MedicationType
+            type={(medication.medication_type?.name[0]).toUpperCase()}
           />
         </div>
 
-        <div className="flex flex-col gap-3">
-          {/* Linha superior */}
-          <div className="flex flex-col md:flex-row gap-8 sm:gap-3">
-            {/* Coluna esquerda - Informações Gerais */}
-            <DetailSection title="Informações Gerais">
-              <InfoItem title="Princípios ativos" content={detalhesMedicamentos.principioAtivo} />
-              
-              <InfoItem title="Grupos Farmacológicos" content={detalhesMedicamentos.gruposFarm} />
-              
-              <InfoItem title="Indicações terapeuticas" content={detalhesMedicamentos.indicTerap} />
-            </DetailSection>
-            
-            {/* Coluna direita - Apresentação */}
-            <DetailSection title="Apresentação">
-              <PresentationItem data={detalhesMedicamentos.apresentacao} />
-            </DetailSection>
-            
-          </div>
+        <div className="h-auto w-full flex gap-6 bg-bg-main">
+          <div className="w-1/2 h-full flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Princípios ativos</p>
+              <p className="text-neutral-200">
+                {medication.active_principle?.name}
+              </p>
+            </div>
 
-          {/* Linha inferior - Observações */}
-          <h1 className="text-xl font-semibold mt-4">
-              Observações
-          </h1>
-          <div className="flex flex-col items-center md:items-start md:flex-row md:justify-between gap-10">
-            <section className="space-y-4 flex-1">
-              <section className="space-y-1">
-                <div className="text-sm text-neutral-main">Laboratório</div>
-                <ul className="bg-bg-layer rounded-lg divide-y divide-custom-divide">
-                  {detalhesMedicamentos.lab.map((item, index) => (
-                    <li key={index} className="text-16px p-4">
-                      {item}
-                    </li>
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Grupos Farmacológicos</p>
+
+              {medication.pharmacological_group ? (
+                <ul className="text-neutral-200 list-disc pl-4">
+                  {medication.pharmacological_group.map(({ name }, index) => (
+                    <li key={index}>{name}</li>
                   ))}
                 </ul>
-              </section>
+              ) : (
+                <p>Sem grupos farmacológicos.</p>
+              )}
+            </div>
 
-              <section className="space-y-1">
-                <div className="text-neutral-main text-sm">
-                  Risco na gravidez
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">
+                Indicações terapeuticas
+              </p>
+              {medication.therapeutic_indication ? (
+                <ul className="text-neutral-200 list-disc pl-4">
+                  {medication.therapeutic_indication.map(({ name }, index) => (
+                    <li key={index}>{name}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Sem indicações terapeuticas.</p>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Risco na gravidez</p>
+              {medication.pregnancy_risk ? (
+                <div className="flex items-center gap-4">
+                  <div className="bg-medication-other w-16 h-16 aspect-square rounded-xl flex items-center justify-center">
+                    <span className="text-4xl font-bold">
+                      {medication.pregnancy_risk.letter}
+                    </span>
+                  </div>
+                  <p className="text-neutral-200">
+                    {medication.pregnancy_risk.name}
+                  </p>
                 </div>
-                <div className="text-sm">
-                  <img
-                    src={riscoImg}
-                    alt="Imagem de risco"
-                    className="w-14 h-14 float-left mr-2" // Defina o tamanho desejado usando classes Tailwind CSS
-                  />
-                  <p>{detalhesMedicamentos.risco}</p>
-                </div>
-              </section>
+              ) : (
+                <p>Sem risco na gravidez.</p>
+              )}
+            </div>
 
-              <section className="text-sm">
-                <h1 className="text-neutral-main">Aprovado pela anvisa:</h1>
-                <p>{detalhesMedicamentos.dataAnvisa}</p>
-              </section>
-              
-              <section className="text-sm">
-                <h1 className="text-neutral-main">Receituário:</h1>
-                <p>{detalhesMedicamentos.receita}</p>
-              </section>
-            </section>
-
-            <ContainerItem title="Genéricos Equivalentes" data={detalhesMedicamentos.genericos} />            
-            
-            <ContainerItem title="Similares Equivalentes" data={detalhesMedicamentos.similares} />            
+            <div>
+              <p className="text-neutral-400 text-sm">
+                Aprovado pela Anvisa:{" "}
+                <span className="text-neutral-200">
+                  {medication.approvaction_date ?? "-"}
+                </span>
+              </p>
+              <p className="text-neutral-400 text-sm">
+                Receituário:{" "}
+                <span className="text-neutral-200">
+                  {medication.prescription ?? "-"}
+                </span>
+              </p>
+            </div>
           </div>
+
+          <div className="w-1/4 h-full flex flex-col gap-6">
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Laboratório</p>
+              <ul className="bg-bg-layer rounded-lg divide-custom-divide px-4 py-1">
+                <li className="text-neutral-200 py-2">
+                  {medication.laboratory?.name ?? "-"}
+                </li>
+              </ul>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Genéricos Equivalentes</p>
+              <ul className="bg-bg-layer rounded-lg divide-y divide-custom-divide px-4 py-1">
+                {medication.generic_equivalent_to.length ? (
+                  medication.generic_equivalent_to.map(
+                    ({ name, laboratory }, index) => (
+                      <li key={index} className="flex flex-col py-2">
+                        <span className="text-neutral-200">{name}</span>
+                        <span className="text-neutral-400 text-sm font-thin">
+                          {laboratory?.name ?? "-"}
+                        </span>
+                      </li>
+                    )
+                  )
+                ) : (
+                  <li className="flex flex-col py-2">
+                    <span className="text-neutral-200">-</span>
+                  </li>
+                )}
+              </ul>
+            </div>
+
+            <div className="flex flex-col gap-2">
+              <p className="text-neutral-400 text-sm">Similares Equivalentes</p>
+              <ul className="bg-bg-layer rounded-lg divide-y divide-custom-divide px-4 py-1">
+                {medication.similar_equivalent_to.length ? (
+                  medication.similar_equivalent_to.map(
+                    ({ name, laboratory }, index) => (
+                      <li key={index} className="flex flex-col py-2">
+                        <span className="text-neutral-200">{name}</span>
+                        <span className="text-neutral-400 text-sm font-thin">
+                          {laboratory?.name ?? "-"}
+                        </span>
+                      </li>
+                    )
+                  )
+                ) : (
+                  <li className="flex flex-col py-2">
+                    <span className="text-neutral-200">-</span>
+                  </li>
+                )}
+              </ul>
+            </div>
+          </div>
+
+          {/* <div className="p-2 w-1/4 bg-bg-layer max-h-100 rounded-lg px-4 py-6">
+            <p className="text-center text-xl font-semibold mb-4">
+              APRESENTAÇÃO
+            </p>
+
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col gap-1">
+                <p className="text-neutral-200">Creme dematológico 1 MG/G</p>
+                <ul className="text-neutral-400 list-disc pl-4">
+                  <li>Caixa com 10 ou 20 g</li>
+                  <li>Uso dermatológico.</li>
+                  <li>Uso adulto e pediátrico acima de 2 anos.</li>
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="text-neutral-200">Dosagem</p>
+                <ul className="text-neutral-400 list-disc pl-4">
+                  <li>
+                    Aplicar 1 camada fina sobre a área afetada, 1 vez ao dia
+                  </li>
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="text-neutral-200">Creme dematológico 1 MG/G</p>
+                <ul className="text-neutral-400 list-disc pl-4">
+                  <li>Caixa com 10 ou 20 g</li>
+                  <li>Uso dermatológico.</li>
+                  <li>Uso adulto e pediátrico acima de 2 anos.</li>
+                </ul>
+              </div>
+
+              <div className="flex flex-col gap-1">
+                <p className="text-neutral-200">Dosagem</p>
+                <ul className="text-neutral-400 list-disc pl-4">
+                  <li>
+                    Aplicar 1 camada fina sobre a área afetada, 1 vez ao dia
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div> */}
         </div>
-      
+      </div>
     </BaseLayout>
   );
-}
+};
 
 export default Detalhes;

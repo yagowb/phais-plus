@@ -21,19 +21,19 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
-    path: "/analise",
+    path: "analise",
     element: <Analise />,
   },
   {
-    path: "/medicamentos",
+    path: "medicamentos",
     element: <Medicamentos />,
   },
   {
-    path: "/detalhes",
+    path: "medicamentos/:id",
     element: <Detalhes />,
   },
   {

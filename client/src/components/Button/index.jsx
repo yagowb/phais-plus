@@ -1,20 +1,19 @@
 import { Link } from "react-router-dom";
 
-function Button({ children, label, type, redirect, color, ...properties }) {
-  let colorStyle =
+function Button({ to, label, color, children, ...otherProps }) {
+  const colorStyle =
     color === "primary"
       ? "bg-green-dark hover:bg-green-dark hover:bg-opacity-80"
       : "bg-bg-main hover:bg-bg-main hover:bg-opacity-80";
 
   return (
     <Link
-      to={redirect}
-      type={type}
-      className={`inline-flex items-center justify-center gap-2 rounded-lg px-14 py-3.5 mt-4 font-medium text-white ${colorStyle}`}
-      {...properties}
+      to={to}
+      className={`text-white text-lg font-medium w-full flex items-center justify-center rounded-lg gap-2 py-3 sm:w-fit sm:py-4 sm:px-8 ${colorStyle}`}
+      {...otherProps}
     >
       {children}
-      {label}
+      <p className="uppercase">{label}</p>
     </Link>
   );
 }

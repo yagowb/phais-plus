@@ -1,8 +1,9 @@
-import { Check, X, Filter as IconFilter } from "lucide-react";
-import Checkbox from "./../Input/Checkbox";
 import { useState } from "react";
+import { Check, X, Filter as IconFilter } from "lucide-react";
 
-function Filter() {
+import Checkbox from "./../Input/Checkbox";
+
+const Filter = () => {
   const [filterIsActive, setFilterIsActive] = useState(false);
 
   return (
@@ -15,7 +16,7 @@ function Filter() {
         <IconFilter
           strokeWidth={`${filterIsActive ? 2 : 1}`}
           size={28}
-          className="text-gray-200"
+          className="text-neutral-200"
         />
       </button>
       {!filterIsActive || (
@@ -23,9 +24,9 @@ function Filter() {
       )}
     </div>
   );
-}
+};
 
-function FilterBox({ onClose }) {
+const FilterBox = ({ onClose }) => {
   return (
     <div className="absolute top-14 right-0 md:top-0 md:left-10 z-10 bg-bg-layer w-60 p-5 rounded-md space-y-3 shadow-md">
       <div className="flex justify-between items-center">
@@ -72,6 +73,6 @@ function FilterBox({ onClose }) {
       </div>
     </div>
   );
-}
+};
 
 export default Filter;
