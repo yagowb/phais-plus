@@ -9,6 +9,9 @@ import Detalhes from "./pages/Detalhes";
 import Solicitacoes from "./pages/Solicitacoes";
 import Home from "./pages/Home";
 import Admin from "./pages/Admin/Requisicoes";
+import SolicitacaoIndividual from "./pages/SolicitacaoIndividual";
+import Perfil from "./pages/Perfil";
+import Users from "./pages/Admin/Users";
 
 import { Toaster } from "react-hot-toast";
 
@@ -22,19 +25,23 @@ const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/login",
+    path: "login",
     element: <Login />,
   },
   {
-    path: "/analise",
+    path: "analise",
     element: <Analise />,
   },
   {
-    path: "/medicamentos",
+    path: "/home",
+    element: <Home />,
+  },
+  {
+    path: "medicamentos",
     element: <Medicamentos />,
   },
   {
-    path: "/detalhes",
+    path: "medicamentos/:id",
     element: <Detalhes />,
   },
   {
@@ -42,12 +49,20 @@ const router = createBrowserRouter([
     element: <Solicitacoes />,
   },
   {
-    path: "/home",
-    element: <Home />,
+    path: "/solicitacoes/:id",
+    element: <SolicitacaoIndividual />,
   },
   {
     path: "/admin",
     element: <Admin />,
+  },
+  {
+    path: "/admin/usuarios",
+    element: <Users />,
+  },
+  {
+    path: "/perfil",
+    element: <Perfil />,
   },
 ]);
 

@@ -2,7 +2,11 @@ function InfoItem({ title, content }) {
   return (
     <section>
       <div className="text-neutral-main text-sm">{title}</div>
-      {typeof content === "object" ? InfoListFormat(content) : <div>{content}</div>}
+      {typeof content === "object" ? (
+        InfoListFormat(content)
+      ) : (
+        <div>{content}</div>
+      )}
     </section>
   );
 }
@@ -19,24 +23,21 @@ function InfoListFormat(list) {
   );
 }
 
-function PresentationItem({ data }){
+function PresentationItem({ data }) {
   return (
     <div>
       {data.map((item, index) => (
         <section key={index}>
-          <h2 className="text-lg">
-            {item.titulo}
-          </h2>
+          <h2 className="text-lg">{item.titulo}</h2>
           {PresentationListFormat(item.detalhes)}
           <section className="pl-4">
             <h3 className="text-neutral-300">Dosagem</h3>
             {PresentationListFormat(item.dosagem)}
           </section>
         </section>
-        )
-      )}
+      ))}
     </div>
-  )
+  );
 }
 
 function PresentationListFormat(list) {
@@ -54,15 +55,23 @@ function ContainerItem({ title, data }) {
     <section className="space-y-1 flex-1 w-full">
       <div className="text-sm w-full text-neutral-main">{title}</div>
       <ul className="bg-bg-layer w-full rounded-lg divide-y divide-custom-divide">
-        {data.map((item, index) => (
-          <li key={index} className="p-4">
-            <h1>{item.nome}</h1>{" "}
-            <p className="font-thin text-sm">{item.fabricante}</p>
+        {data.length ? (
+          data.map((item, index) => (
+            <li key={index} className="p-4">
+              <h1>{item.name}</h1>{" "}
+              <p className="font-thin text-sm">
+                {item.laboratory?.name ?? "-"}
+              </p>
+            </li>
+          ))
+        ) : (
+          <li className="p-4">
+            <h1>-</h1>
           </li>
-        ))}
+        )}
       </ul>
     </section>
   );
 }
 
-export {InfoItem, PresentationItem, ContainerItem};
+export { InfoItem, PresentationItem, ContainerItem };

@@ -17,6 +17,8 @@ export default function Sidebar({ setIsExpanded }) {
   const { pathname } = useLocation();
   const [expanded, setExpanded] = useState(true);
 
+  const user = JSON.parse(localStorage.getItem("user"));
+
   return (
     <nav className="h-screen fixed w-fit flex flex-col bg-bg-main border-r border-bg-layer shadow-sm">
       {/* LOGO E BOTÃO DE ENCOLHER SIDEBAR */}
@@ -30,8 +32,8 @@ export default function Sidebar({ setIsExpanded }) {
         />
         <button
           onClick={() => {
-            setExpanded((curr) => !curr)
-            setIsExpanded((curr) => !curr)
+            setExpanded((curr) => !curr);
+            setIsExpanded((curr) => !curr);
           }}
           className="p-1.5 rounded-lg bg-bg-layer hover:bg-bg-layer-hover"
         >
@@ -71,11 +73,13 @@ export default function Sidebar({ setIsExpanded }) {
       </SidebarContext.Provider>
 
       <div className="border-t border-bg-layer flex p-3">
-        <img
-          src="https://ui-avatars.com/api/?name=Beatriz+Vidal&background=B0E2D5&color=2E875C&bold=true"
-          alt=""
-          className="w-10 h-10 rounded-md"
-        />
+        <Link to="/perfil">
+          <img
+            src={`https://ui-avatars.com/api/?name=${user.username}&background=B0E2D5&color=2E875C&bold=true`}
+            alt="Foto de perfil"
+            className="w-10 h-10 rounded-md"
+          />
+        </Link>
         <div
           className={`
               flex justify-between items-center
@@ -83,10 +87,8 @@ export default function Sidebar({ setIsExpanded }) {
           `}
         >
           <div className="leading-4">
-            <h4 className="font-semibold text-gray-200">Beatriz Vidal</h4>
-            <span className="text-xs text-gray-300">
-              beatrizvidal@gmail.com
-            </span>
+            <h4 className="font-semibold text-neutral-200">{user.username}</h4>
+            <span className="text-xs text-neutral-300">{user.email}</span>
           </div>
           <MoreVertical size={20} color="#cccccc" />
         </div>
@@ -99,10 +101,7 @@ export function SidebarItem({ icon, text, active, path }) {
   const { expanded } = useContext(SidebarContext);
 
   return (
-    <li
-      className={`
-        relative`}
-    >
+    <li className={`relative`}>
       <Link
         to={path}
         className={`
@@ -111,8 +110,8 @@ export function SidebarItem({ icon, text, active, path }) {
         transition-colors group
         ${
           active
-            ? "bg-bg-layer hover:bg-bg-layer-hover text-gray-200"
-            : "hover:bg-bg-layer-hover text-gray-200"
+            ? "bg-bg-layer hover:bg-bg-layer-hover text-neutral-200"
+            : "hover:bg-bg-layer-hover text-neutral-200"
         }
     `}
       >

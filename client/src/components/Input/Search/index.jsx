@@ -1,20 +1,22 @@
+import { forwardRef } from "react";
 import { Search as IconSearch } from "lucide-react";
 
-function Search() {
+const Search = forwardRef(({ placeholder }, ref) => {
   return (
-    <div className="relative ">
+    <div className="relative">
       <input
-        className="bg-bg-layer border-none rounded-lg w-full py-2 md:w-auto ps-4 md:pe-36 placeholder-gray-400 focus:outline-none focus:ring-1 focus:ring-green-dark"
+        className="bg-bg-layer border-none rounded-lg w-full py-2 ps-4 pe-12 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-green-dark"
         type="text"
-        placeholder="Pesquisar..."
+        placeholder={placeholder}
+        ref={ref}
       />
 
       <IconSearch
-        strokeWidth={1}
-        className="absolute inset-y-2 end-3 text-gray-400"
+        strokeWidth={2}
+        className="absolute top-2 right-4 text-neutral-200"
       />
     </div>
   );
-}
+});
 
 export default Search;
