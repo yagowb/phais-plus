@@ -11,6 +11,7 @@ import Home from "./pages/Home";
 import Admin from "./pages/Admin/Requisicoes";
 import SolicitacaoIndividual from "./pages/SolicitacaoIndividual";
 import Perfil from "./pages/Perfil";
+import Users from "./pages/Admin/Users";
 
 import { Toaster } from "react-hot-toast";
 
@@ -56,9 +57,13 @@ const router = createBrowserRouter([
     element: <Admin />,
   },
   {
+    path: "/admin/usuarios",
+    element: <Users />,
+  },
+  {
     path: "/perfil",
-    element: <Perfil />
-  }
+    element: <Perfil />,
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")).render(

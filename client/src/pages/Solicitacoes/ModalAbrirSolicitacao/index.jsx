@@ -28,8 +28,8 @@ export function ModalAbrirSolicitacao({ modalIsOpen, closeModal, addRequest }) {
     const { data: createdRequestResponse } = await createRequest(accessToken, {
       hospitalId: user.id,
       medicationId,
-      priorityId: "746a842d-0607-4017-b195-1e3a01e96b0c",
-      statusId: "fcda13ce-6b13-4d94-8f65-0f3389266a22",
+      priorityId: "1fac0bfe-b56e-4aa5-994c-9ec4093e7424",
+      statusId: "320caf79-36a7-4fac-a183-2cfd27a5b0ce",
       description,
       dueDate,
       returnDate,

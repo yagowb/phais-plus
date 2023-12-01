@@ -71,8 +71,7 @@ export default function Admin() {
       throw new Error("No register selected.");
     }
 
-    const accessToken = localStorage.getItem("accessToken");
-    await approveRegister(accessToken, currentRegister.id);
+    await approveRegister(currentRegister.id);
 
     setRegisters(
       registers.filter(
@@ -88,12 +87,7 @@ export default function Admin() {
       throw new Error("No register selected.");
     }
 
-    const accessToken = localStorage.getItem("accessToken");
-    await disapproveRegister(
-      accessToken,
-      currentRegister.id,
-      "Informações inválidas."
-    );
+    await disapproveRegister(currentRegister.id, "Informações inválidas.");
 
     setRegisters(
       registers.filter(
@@ -106,8 +100,7 @@ export default function Admin() {
 
   useEffect(() => {
     (async () => {
-      const accessToken = localStorage.getItem("accessToken");
-      const { data: registersResponse } = await getRegisters(accessToken);
+      const { data: registersResponse } = await getRegisters();
 
       setRegisters(
         registersResponse.data
@@ -130,10 +123,6 @@ export default function Admin() {
       );
     })();
   }, []);
-
-  if (!registers) {
-    return;
-  }
 
   return (
     <BaseLayout title="Requisições - Novos Pedidos">
@@ -236,9 +225,7 @@ export default function Admin() {
           </div>
         </div>
 
-        <div>
-          <Table titles={titles} values={registers} />
-        </div>
+        <div>{registers && <Table titles={titles} values={registers} />}</div>
       </div>
     </BaseLayout>
   );

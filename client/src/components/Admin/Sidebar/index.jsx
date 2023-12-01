@@ -35,15 +35,15 @@ function Sidebar() {
 
       <div className="flex items-center gap-2">
         <img
-          src="https://ui-avatars.com/api/?name=Beatriz+Vidal&background=B0E2D5&color=2E875C&bold=true"
+          src="https://ui-avatars.com/api/?name=Admin&background=B0E2D5&color=2E875C&bold=true"
           alt="Foto de perfil do usuário"
           className="w-10 h-10 aspect-square rounded-md"
         />
         <div className="w-full flex items-center justify-between overflow-hidden transition-all">
           <div className="flex flex-col gap-0.5">
-            <h4 className="font-semibold text-neutral-200">Beatriz Vidal</h4>
+            <h4 className="font-semibold text-neutral-200">Admin</h4>
             <span className="text-xs text-neutral-300">
-              beatrizvidal@gmail.com
+              admin@phaisplus.com
             </span>
           </div>
           <MoreVertical className="text-neutral-200 h-5 w-5 aspect-square hover:cursor-pointer hover:scale-110" />
