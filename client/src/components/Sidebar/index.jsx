@@ -73,11 +73,13 @@ export default function Sidebar({ setIsExpanded }) {
       </SidebarContext.Provider>
 
       <div className="border-t border-bg-layer flex p-3">
-        <img
-          src={`https://ui-avatars.com/api/?name=${user.username}&background=B0E2D5&color=2E875C&bold=true`}
-          alt="Foto de perfil"
-          className="w-10 h-10 rounded-md"
-        />
+        <Link to="/perfil">
+          <img
+            src={`https://ui-avatars.com/api/?name=${user.username}&background=B0E2D5&color=2E875C&bold=true`}
+            alt="Foto de perfil"
+            className="w-10 h-10 rounded-md"
+          />
+        </Link>
         <div
           className={`
               flex justify-between items-center
