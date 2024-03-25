@@ -95,6 +95,60 @@
           }
         }
       ]
+    },
+    {
+      "endpoint": "/medicine",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://localhost:3002"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/medicine",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "POST",
+          "encoding": "json",
+          "host": ["http://localhost:3002"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/medicine/{id}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://localhost:3002"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
     }
   ]
 }
