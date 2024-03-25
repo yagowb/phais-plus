@@ -8,10 +8,11 @@ datasource db {
 }
 
 model Hospital {
-  id         String    @id @default(uuid())
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
+  id          String    @id @default(uuid())
+  external_id String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
 
   requester_request Request[] @relation("requester_hospital")
   attending_request Request[] @relation("attending_hospital")
@@ -20,10 +21,11 @@ model Hospital {
 }
 
 model Medicine {
-  id         String    @id @default(uuid())
-  created_at DateTime  @default(now())
-  updated_at DateTime  @updatedAt
-  deleted_at DateTime?
+  id          String    @id @default(uuid())
+  external_id String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
 
   request Request[]
 
