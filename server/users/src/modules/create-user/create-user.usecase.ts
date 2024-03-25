@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { ParamsDictionary } from "express-serve-static-core";
 import { prismaClient } from "../../infra/database/prismaClient";
-import { KafkaSendMessage } from "../../provider/kafka/producer";
+import { KafkaSendMessage } from "../../infra/providers/kafka/kafka.producer";
 import { formatResponse } from "../../utilities/formatting";
 import {
   validateDocument,
@@ -65,7 +65,7 @@ export class CreateUserUseCase {
     });
 
     const kafkaSendMessage = new KafkaSendMessage();
-    await kafkaSendMessage.execute("user-created", createdUser);
+    await kafkaSendMessage.execute("user-created", { id: createdUser.id });
 
     return formatResponse(201, "User created successfully.", createdUser);
   }
