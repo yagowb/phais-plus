@@ -2,14 +2,16 @@ import { ParamsDictionary } from "express-serve-static-core";
 import { prismaClient } from "../../infra/database/prismaClient";
 import { formatResponse } from "../../utilities/formatting";
 
-type GetMedicinesRequestBody = {};
+type GetMedicineRequestBody = {};
 
-export class GetMedicinesUseCase {
+export class GetMedicineUseCase {
   constructor() {}
 
-  async execute(params: ParamsDictionary, body: GetMedicinesRequestBody) {
-    const foundMedicines = await prismaClient.medication.findMany({
-      where: { deleted_at: null },
+  async execute(params: ParamsDictionary, body: GetMedicineRequestBody) {
+    const { id } = params;
+
+    const foundMedicine = await prismaClient.medication.findUnique({
+      where: { id, deleted_at: null },
       select: {
         id: true,
         name: true,
@@ -30,6 +32,13 @@ export class GetMedicinesUseCase {
       },
     });
 
-    return formatResponse(200, "Medicines found succesfully.", foundMedicines);
+    if (!foundMedicine) {
+      return formatResponse(
+        404,
+        "A medicine with the provided ID does not exist."
+      );
+    }
+
+    return formatResponse(200, "Medicine found successfully.", foundMedicine);
   }
 }
