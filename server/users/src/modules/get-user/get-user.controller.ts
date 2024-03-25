@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
-import { CreateUserUseCase } from "./create-user.usecase";
+import { GetUserUseCase } from "./get-user.usecase";
 
-export class CreateUserController {
+export class GetUserController {
   constructor() {}
 
   async handle(request: Request, response: Response) {
-    const useCase = new CreateUserUseCase();
+    const useCase = new GetUserUseCase();
 
     try {
       const { statusCode, json } = await useCase.execute(
@@ -14,7 +14,7 @@ export class CreateUserController {
       );
       return response.status(statusCode).json(json);
     } catch (error) {
-      response.status(500).json(error);
+      return response.status(500).json(error);
     }
   }
 }

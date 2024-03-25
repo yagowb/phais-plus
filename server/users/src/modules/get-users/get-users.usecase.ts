@@ -1,12 +1,13 @@
+import { ParamsDictionary } from "express-serve-static-core";
 import { prismaClient } from "../../infra/database/prismaClient";
 import { formatResponse } from "../../utilities/formatting";
 
-type GetUsersRequest = {};
+type GetUsersRequestBody = {};
 
 export class GetUsersUseCase {
   constructor() {}
 
-  async execute(data: GetUsersRequest) {
+  async execute(params: ParamsDictionary, body: GetUsersRequestBody) {
     const foundUsers = await prismaClient.user.findMany({
       where: { deleted_at: null },
       select: {

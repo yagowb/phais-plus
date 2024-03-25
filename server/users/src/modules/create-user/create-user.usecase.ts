@@ -1,4 +1,5 @@
 import bcrypt from "bcrypt";
+import { ParamsDictionary } from "express-serve-static-core";
 import { prismaClient } from "../../infra/database/prismaClient";
 import { formatResponse } from "../../utilities/formatting";
 import {
@@ -7,7 +8,7 @@ import {
   validatePassword,
 } from "../../utilities/validation";
 
-type CreateUserRequest = {
+type CreateUserRequestBody = {
   cnpj: string;
   email: string;
   username: string;
@@ -18,8 +19,8 @@ type CreateUserRequest = {
 export class CreateUserUseCase {
   constructor() {}
 
-  async execute(data: CreateUserRequest) {
-    const { cnpj, email, username, password, phone } = data;
+  async execute(params: ParamsDictionary, body: CreateUserRequestBody) {
+    const { cnpj, email, username, password, phone } = body;
 
     if (!cnpj || !email || !username || !password || !phone) {
       return formatResponse(400, "Please provide all required fields.");

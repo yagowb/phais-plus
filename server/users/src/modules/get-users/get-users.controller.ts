@@ -8,7 +8,10 @@ export class GetUsersController {
     const useCase = new GetUsersUseCase();
 
     try {
-      const { statusCode, json } = await useCase.execute(request.body);
+      const { statusCode, json } = await useCase.execute(
+        request.params,
+        request.body
+      );
       return response.status(statusCode).json(json);
     } catch (error) {
       return response.status(500).json(error);
