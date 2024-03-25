@@ -1,10 +1,6 @@
-export const formatResponse = (
-  statusCode: number,
-  message: string,
-  data?: any
-) => {
+export const formatResponse = (status: number, message: string, data?: any) => {
   return {
-    statusCode,
-    json: { statusCode, message, data },
+    status,
+    json: { status, message, data },
   };
 };

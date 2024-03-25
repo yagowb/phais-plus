@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { GetMedicineUseCase } from "./get-medicine.usecase";
+import { formatResponse } from "../../utilities/formatting";
 
 export class GetMedicineController {
   constructor() {}
@@ -8,13 +9,14 @@ export class GetMedicineController {
     const useCase = new GetMedicineUseCase();
 
     try {
-      const { statusCode, json } = await useCase.execute(
+      const { status, json } = await useCase.execute(
         request.params,
         request.body
       );
-      return response.status(statusCode).json(json);
+      return response.status(status).json(json);
     } catch (error) {
-      return response.status(500).json(error);
+      const { status, json } = formatResponse(500, "Internal server error.");
+      return response.status(status).json(json);
     }
   }
 }
