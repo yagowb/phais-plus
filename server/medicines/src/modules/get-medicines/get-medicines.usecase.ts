@@ -8,13 +8,13 @@ export class GetMedicinesUseCase {
   constructor() {}
 
   async execute(params: ParamsDictionary, body: GetMedicinesRequestBody) {
-    const foundMedicines = await prismaClient.medication.findMany({
+    const foundMedicines = await prismaClient.medicine.findMany({
       where: { deleted_at: null },
       select: {
         id: true,
         name: true,
         approvation_date: true,
-        medication_type: true,
+        medicine_type: true,
         active_principle: true,
         pregnancy_risk: true,
         prescription: true,

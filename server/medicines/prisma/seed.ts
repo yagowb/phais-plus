@@ -14,7 +14,7 @@ interface CategoriesResponse {
   };
 }
 
-interface MedicationsRequest {
+interface MedicinesRequest {
   data: { content: { numProcesso: string }[] };
 }
 
@@ -23,7 +23,7 @@ interface Presentation {
   restricaoPrescricao: string[];
 }
 
-interface Medication {
+interface Medicine {
   nomeComercial: string;
   categoriaRegulatoria: string;
   principioAtivo: string;
@@ -31,13 +31,13 @@ interface Medication {
   apresentacoes: Presentation[];
 }
 
-interface MedicationResponse {
-  data: Medication;
+interface MedicineResponse {
+  data: Medicine;
 }
 
-interface DatabaseMedication {
+interface DatabaseMedicine {
   name: string;
-  medicationType: string;
+  medicineType: string;
   activePrinciple: string;
   prescription: string;
   pharmacologicalGroups: string[];
@@ -51,30 +51,30 @@ async function getCategories(axiosInstance: AxiosInstance) {
   return categories;
 }
 
-async function getMedicationsByCategory(
+async function getMedicinesByCategory(
   axiosInstance: AxiosInstance,
   categoryId: number
 ) {
   const {
-    data: { content: medications },
-  }: MedicationsRequest = await axiosInstance.get("/medicamentos", {
+    data: { content: medicines },
+  }: MedicinesRequest = await axiosInstance.get("/medicamentos", {
     params: {
       categoria: categoryId,
     },
   });
 
-  return medications;
+  return medicines;
 }
 
-async function getMedication(
+async function getMedicine(
   axiosInstance: AxiosInstance,
   processNumber: string
 ) {
-  const { data: medication }: MedicationResponse = await axiosInstance.get(
+  const { data: medicine }: MedicineResponse = await axiosInstance.get(
     `/medicamento/${processNumber}`
   );
 
-  return medication;
+  return medicine;
 }
 
 function getLastPresentation(presentations: Presentation[]) {
@@ -94,55 +94,55 @@ async function main() {
     categories.map((category) => category.descricao.toUpperCase())
   );
 
-  await prisma.medicationType.deleteMany();
+  await prisma.medicineType.deleteMany();
 
-  await prisma.medicationType.createMany({
+  await prisma.medicineType.createMany({
     data: [...categoryDescriptions].map((categoryDescription) => {
       return { name: categoryDescription };
     }),
   });
 
-  let medications: DatabaseMedication[] = [];
+  let medicines: DatabaseMedicine[] = [];
   let activePrinciples: Set<string> = new Set();
   let prescriptions: Set<string> = new Set();
   let pharmacologicalGroups: Set<string> = new Set();
   for (const category of categories) {
-    const medicationProcessNumbers = await getMedicationsByCategory(
+    const medicineProcessNumbers = await getMedicinesByCategory(
       axiosInstance,
       category.id
     );
 
-    const processNumbers = medicationProcessNumbers.map(
-      (medicationProcessNumber) => medicationProcessNumber.numProcesso
+    const processNumbers = medicineProcessNumbers.map(
+      (medicineProcessNumber) => medicineProcessNumber.numProcesso
     );
 
     for (const processNumber of processNumbers) {
       try {
-        const medication = await getMedication(axiosInstance, processNumber);
+        const medicine = await getMedicine(axiosInstance, processNumber);
 
-        activePrinciples.add(medication.principioAtivo.toUpperCase());
+        activePrinciples.add(medicine.principioAtivo.toUpperCase());
 
-        const lastPresentation = getLastPresentation(medication.apresentacoes);
+        const lastPresentation = getLastPresentation(medicine.apresentacoes);
         if (lastPresentation) {
           for (const prescription of lastPresentation.restricaoPrescricao) {
             prescriptions.add(prescription.toLocaleUpperCase());
           }
         }
 
-        for (const pharmacologicalGroup of medication.classesTerapeuticas) {
+        for (const pharmacologicalGroup of medicine.classesTerapeuticas) {
           pharmacologicalGroups.add(pharmacologicalGroup.toUpperCase());
         }
 
-        medications.push({
-          name: medication.nomeComercial.toLocaleUpperCase(),
-          medicationType: medication.categoriaRegulatoria.toUpperCase(),
-          activePrinciple: medication.principioAtivo.toUpperCase(),
+        medicines.push({
+          name: medicine.nomeComercial.toLocaleUpperCase(),
+          medicineType: medicine.categoriaRegulatoria.toUpperCase(),
+          activePrinciple: medicine.principioAtivo.toUpperCase(),
           prescription:
             lastPresentation?.restricaoPrescricao &&
             lastPresentation?.restricaoPrescricao.length > 0
               ? lastPresentation?.restricaoPrescricao[0]
               : "",
-          pharmacologicalGroups: medication.classesTerapeuticas.map(
+          pharmacologicalGroups: medicine.classesTerapeuticas.map(
             (terapeuthicClass) => terapeuthicClass.toUpperCase()
           ),
         });
@@ -185,27 +185,26 @@ async function main() {
     }),
   });
 
-  const dbMedicationTypes = await prisma.medicationType.findMany();
+  const dbMedicineTypes = await prisma.medicineType.findMany();
   const dbActivePrinciples = await prisma.activePrinciple.findMany();
   const dbPrescriptions = await prisma.prescription.findMany();
   const dbPharmacologicalGroups = await prisma.pharmacologicalGroup.findMany();
 
-  for (const medication of medications) {
-    await prisma.medication.create({
+  for (const medicine of medicines) {
+    await prisma.medicine.create({
       data: {
-        name: medication.name,
-        medication_type_id: dbMedicationTypes.find(
-          (medicationType) => medicationType.name === medication.medicationType
+        name: medicine.name,
+        medicine_type_id: dbMedicineTypes.find(
+          (medicineType) => medicineType.name === medicine.medicineType
         )?.id,
         active_principle_id: dbActivePrinciples.find(
-          (activePrinciple) =>
-            activePrinciple.name === medication.activePrinciple
+          (activePrinciple) => activePrinciple.name === medicine.activePrinciple
         )?.id,
         prescription_id: dbPrescriptions.find(
-          (prescription) => prescription.name === medication.name
+          (prescription) => prescription.name === medicine.name
         )?.id,
         pharmacological_group: {
-          connect: medication.pharmacologicalGroups.map(
+          connect: medicine.pharmacologicalGroups.map(
             (pharmacologicalGroup) => {
               return {
                 id: dbPharmacologicalGroups.find(

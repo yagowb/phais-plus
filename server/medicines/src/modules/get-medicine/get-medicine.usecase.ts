@@ -10,13 +10,13 @@ export class GetMedicineUseCase {
   async execute(params: ParamsDictionary, body: GetMedicineRequestBody) {
     const { id } = params;
 
-    const foundMedicine = await prismaClient.medication.findUnique({
+    const foundMedicine = await prismaClient.medicine.findUnique({
       where: { id, deleted_at: null },
       select: {
         id: true,
         name: true,
         approvation_date: true,
-        medication_type: true,
+        medicine_type: true,
         active_principle: true,
         pregnancy_risk: true,
         prescription: true,
