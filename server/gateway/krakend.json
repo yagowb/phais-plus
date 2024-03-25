@@ -1,0 +1,100 @@
+{
+  "version": 3,
+  "extra_config": {
+    "router": {
+      "return_error_msg": true
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/user",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://localhost:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "POST",
+          "encoding": "json",
+          "host": ["http://localhost:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user/{id}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://localhost:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user/{id}",
+      "method": "PATCH",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "PATCH",
+          "encoding": "json",
+          "host": ["http://localhost:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user/{id}",
+      "method": "DELETE",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "DELETE",
+          "encoding": "json",
+          "host": ["http://localhost:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
