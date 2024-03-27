@@ -4,7 +4,7 @@ import { prismaClient } from "../../infra/database/prismaClient";
 
 type CreateRequestRequestBody = {
   requester_hospital_id: string;
-  attending_hospital_id: string;
+  attending_hospital_id?: string;
   medicine_id: string;
   priority_id: string;
   status_id: string;
@@ -32,7 +32,6 @@ export class CreateRequestUsecase {
 
     if (
       !requester_hospital_id ||
-      !attending_hospital_id ||
       !medicine_id ||
       !priority_id ||
       !status_id ||
@@ -56,15 +55,17 @@ export class CreateRequestUsecase {
       );
     }
 
-    const foundAttendingHospital = await prismaClient.hospital.findUnique({
-      where: { id: attending_hospital_id, deleted_at: null },
-    });
+    if (attending_hospital_id) {
+      const foundAttendingHospital = await prismaClient.hospital.findUnique({
+        where: { id: attending_hospital_id, deleted_at: null },
+      });
 
-    if (!foundAttendingHospital) {
-      return formatResponse(
-        404,
-        "A hospital with the provided attending hospital ID not exists."
-      );
+      if (!foundAttendingHospital) {
+        return formatResponse(
+          404,
+          "A hospital with the provided attending hospital ID not exists."
+        );
+      }
     }
 
     const foundMedicine = await prismaClient.medicine.findUnique({

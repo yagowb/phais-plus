@@ -61,7 +61,7 @@ model Status {
 model Request {
   id                    String    @id @default(uuid())
   requester_hospital_id String
-  attending_hospital_id String
+  attending_hospital_id String?
   medicine_id           String
   priority_id           String
   status_id             String
@@ -73,7 +73,7 @@ model Request {
   due_date              DateTime
   return_date           DateTime
   requester_hospital    Hospital  @relation(name: "requester_hospital", fields: [requester_hospital_id], references: [id])
-  attending_hospital    Hospital  @relation(name: "attending_hospital", fields: [attending_hospital_id], references: [id])
+  attending_hospital    Hospital? @relation(name: "attending_hospital", fields: [attending_hospital_id], references: [id])
   medicine              Medicine  @relation(fields: [medicine_id], references: [id])
   priority              Priority  @relation(fields: [priority_id], references: [id])
   status                Status    @relation(fields: [status_id], references: [id])
