@@ -44,8 +44,8 @@ export class CreateRequestUsecase {
       return formatResponse(400, "Please provide all required fields.");
     }
 
-    const foundRequesterHospital = await prismaClient.hospital.findUnique({
-      where: { id: requester_hospital_id, deleted_at: null },
+    const foundRequesterHospital = await prismaClient.hospital.findFirst({
+      where: { external_id: requester_hospital_id, deleted_at: null },
     });
 
     if (!foundRequesterHospital) {
@@ -55,9 +55,10 @@ export class CreateRequestUsecase {
       );
     }
 
+    let foundAttendingHospital = null;
     if (attending_hospital_id) {
-      const foundAttendingHospital = await prismaClient.hospital.findUnique({
-        where: { id: attending_hospital_id, deleted_at: null },
+      foundAttendingHospital = await prismaClient.hospital.findFirst({
+        where: { external_id: attending_hospital_id, deleted_at: null },
       });
 
       if (!foundAttendingHospital) {
@@ -68,8 +69,8 @@ export class CreateRequestUsecase {
       }
     }
 
-    const foundMedicine = await prismaClient.medicine.findUnique({
-      where: { id: medicine_id, deleted_at: null },
+    const foundMedicine = await prismaClient.medicine.findFirst({
+      where: { external_id: medicine_id, deleted_at: null },
     });
 
     if (!foundMedicine) {
@@ -94,9 +95,9 @@ export class CreateRequestUsecase {
 
     const createdRequest = await prismaClient.request.create({
       data: {
-        requester_hospital_id,
-        attending_hospital_id,
-        medicine_id,
+        requester_hospital_id: foundRequesterHospital.id,
+        attending_hospital_id: foundAttendingHospital?.id,
+        medicine_id: foundMedicine.id,
         priority_id,
         status_id,
         quantity,
