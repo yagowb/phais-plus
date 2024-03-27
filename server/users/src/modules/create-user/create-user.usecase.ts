@@ -65,7 +65,10 @@ export class CreateUserUseCase {
     });
 
     const kafkaSendMessage = new KafkaSendMessage();
-    await kafkaSendMessage.execute("user-created", { id: createdUser.id });
+    await kafkaSendMessage.execute("user-created", {
+      id: createdUser.id,
+      name: createdUser.username,
+    });
 
     return formatResponse(201, "User created successfully.", createdUser);
   }

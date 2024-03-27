@@ -1,7 +1,7 @@
 import { prismaClient } from "../../../database/prismaClient";
 import { kafkaConsumer } from "../../kafka.consumer";
 
-type MedicineConsumer = { id: string };
+type MedicineConsumer = { id: string; name: string };
 
 export const createMedicineConsumer = async () => {
   const topic = "medicine-created";
@@ -17,7 +17,7 @@ export const createMedicineConsumer = async () => {
 
       const medicine = JSON.parse(messageToString) as MedicineConsumer;
       await prismaClient.medicine.create({
-        data: { external_id: medicine.id },
+        data: { external_id: medicine.id, name: medicine.name },
       });
 
       console.log(`MEDICINE CREATED: ${medicine.id} (EXTERNAL ID)`);

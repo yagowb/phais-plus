@@ -11,9 +11,9 @@ export class GetRequestsUseCase {
     const requests = await prismaClient.request.findMany({
       select: {
         id: true,
-        requester_hospital_id: true,
-        attending_hospital_id: true,
-        medicine_id: true,
+        requester_hospital: true,
+        attending_hospital: true,
+        medicine: true,
         quantity: true,
         priority: true,
         status: true,

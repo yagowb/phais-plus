@@ -164,7 +164,10 @@ export class CreateMedicineUseCase {
     });
 
     const kafkaSendMessage = new KafkaSendMessage();
-    kafkaSendMessage.execute("medicine-created", { id: createdMedicine.id });
+    kafkaSendMessage.execute("medicine-created", {
+      id: createdMedicine.id,
+      name: createdMedicine.name,
+    });
 
     return formatResponse(
       201,

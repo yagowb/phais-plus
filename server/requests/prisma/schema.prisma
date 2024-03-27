@@ -10,6 +10,7 @@ datasource db {
 model Hospital {
   id          String    @id @default(uuid())
   external_id String
+  name        String
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   deleted_at  DateTime?
@@ -23,6 +24,7 @@ model Hospital {
 model Medicine {
   id          String    @id @default(uuid())
   external_id String
+  name        String
   created_at  DateTime  @default(now())
   updated_at  DateTime  @updatedAt
   deleted_at  DateTime?

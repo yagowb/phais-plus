@@ -3,6 +3,7 @@ import axios, { AxiosInstance, AxiosError } from "axios";
 
 const prisma = new PrismaClient();
 const BULARIO_API_URL = "https://bula.vercel.app";
+const PHAIS_PLUS_MEDICINE_API_URL = "http://localhost:8080/medicine";
 
 interface CategoriesResponse {
   data: {
@@ -87,9 +88,12 @@ function getLastPresentation(presentations: Presentation[]) {
 }
 
 async function main() {
-  const axiosInstance = axios.create({ baseURL: BULARIO_API_URL });
+  const axiosBularioInstance = axios.create({ baseURL: BULARIO_API_URL });
+  const axiosPhaisPlusMedicineInstance = axios.create({
+    baseURL: PHAIS_PLUS_MEDICINE_API_URL,
+  });
 
-  const categories = await getCategories(axiosInstance);
+  const categories = await getCategories(axiosBularioInstance);
   const categoryDescriptions = new Set(
     categories.map((category) => category.descricao.toUpperCase())
   );
@@ -108,7 +112,7 @@ async function main() {
   let pharmacologicalGroups: Set<string> = new Set();
   for (const category of categories) {
     const medicineProcessNumbers = await getMedicinesByCategory(
-      axiosInstance,
+      axiosBularioInstance,
       category.id
     );
 
@@ -118,7 +122,11 @@ async function main() {
 
     for (const processNumber of processNumbers) {
       try {
-        const medicine = await getMedicine(axiosInstance, processNumber);
+        const medicine = await getMedicine(axiosBularioInstance, processNumber);
+
+        if (!medicine.principioAtivo) {
+          continue;
+        }
 
         activePrinciples.add(medicine.principioAtivo.toUpperCase());
 
@@ -191,31 +199,25 @@ async function main() {
   const dbPharmacologicalGroups = await prisma.pharmacologicalGroup.findMany();
 
   for (const medicine of medicines) {
-    await prisma.medicine.create({
-      data: {
-        name: medicine.name,
-        medicine_type_id: dbMedicineTypes.find(
-          (medicineType) => medicineType.name === medicine.medicineType
-        )?.id,
-        active_principle_id: dbActivePrinciples.find(
-          (activePrinciple) => activePrinciple.name === medicine.activePrinciple
-        )?.id,
-        prescription_id: dbPrescriptions.find(
-          (prescription) => prescription.name === medicine.name
-        )?.id,
-        pharmacological_group: {
-          connect: medicine.pharmacologicalGroups.map(
-            (pharmacologicalGroup) => {
-              return {
-                id: dbPharmacologicalGroups.find(
-                  (dbPharmacologicalGroup) =>
-                    dbPharmacologicalGroup.name === pharmacologicalGroup
-                )?.id,
-              };
-            }
-          ),
-        },
-      },
+    await axiosPhaisPlusMedicineInstance.post("/", {
+      name: medicine.name,
+      medicine_type_id: dbMedicineTypes.find(
+        (medicineType) => medicineType.name === medicine.medicineType
+      )?.id,
+      active_principle_id: dbActivePrinciples.find(
+        (activePrinciple) => activePrinciple.name === medicine.activePrinciple
+      )?.id,
+      prescription_id: dbPrescriptions.find(
+        (prescription) => prescription.name === medicine.name
+      )?.id,
+      pharmacological_group_ids: medicine.pharmacologicalGroups.map(
+        (pharmacologicalGroup) => {
+          return dbPharmacologicalGroups.find(
+            (dbPharmacologicalGroup) =>
+              dbPharmacologicalGroup.name === pharmacologicalGroup
+          )?.id;
+        }
+      ),
     });
   }
 }
@@ -225,7 +227,7 @@ main()
     await prisma.$disconnect();
   })
   .catch(async (exception) => {
-    console.log(exception);
     await prisma.$disconnect();
-    process.exit(1);
+    throw exception;
+    // process.exit(1);
   });
