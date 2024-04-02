@@ -1,0 +1,249 @@
+{
+  "version": 3,
+  "extra_config": {
+    "security/cors": {
+      "allow_origins": [
+        "*"
+      ]
+    },
+    "router": {
+      "return_error_msg": true
+    }
+  },
+  "endpoints": [
+    {
+      "endpoint": "/user",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "POST",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user/{id}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user/{id}",
+      "method": "PATCH",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "PATCH",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/user/{id}",
+      "method": "DELETE",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "DELETE",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3001"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/medicine",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3002"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/medicine",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "POST",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3002"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/medicine/{id}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3002"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/request/status",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/status",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3003"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/request/priority",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/priority",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3003"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/request",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3003"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/request/{id}",
+      "method": "GET",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/{id}",
+          "method": "GET",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3003"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    },
+    {
+      "endpoint": "/request",
+      "method": "POST",
+      "output_encoding": "json",
+      "backend": [
+        {
+          "url_pattern": "/",
+          "method": "POST",
+          "encoding": "json",
+          "host": ["http://192.168.137.1:3003"],
+          "extra_config": {
+            "backend/http": {
+              "return_error_code": true
+            }
+          }
+        }
+      ]
+    }
+  ]
+}
