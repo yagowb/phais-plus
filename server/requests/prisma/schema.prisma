@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Hospital {
+  id          String    @id @default(uuid())
+  external_id String
+  name        String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+
+  requester_request Request[] @relation("requester_hospital")
+  attending_request Request[] @relation("attending_hospital")
+
+  @@map("hospitals")
+}
+
+model Medicine {
+  id          String    @id @default(uuid())
+  external_id String
+  name        String
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @updatedAt
+  deleted_at  DateTime?
+
+  request Request[]
+
+  @@map("medicines")
+}
+
+model Priority {
+  id         String    @id @default(uuid())
+  name       String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  request Request[]
+
+  @@map("priority")
+}
+
+model Status {
+  id         String    @id @default(uuid())
+  name       String
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
+  request Request[]
+
+  @@map("statuses")
+}
+
+model Request {
+  id                    String    @id @default(uuid())
+  requester_hospital_id String
+  attending_hospital_id String?
+  medicine_id           String
+  priority_id           String
+  status_id             String
+  quantity              Int
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+  deleted_at            DateTime?
+  description           String
+  due_date              DateTime
+  return_date           DateTime
+  requester_hospital    Hospital  @relation(name: "requester_hospital", fields: [requester_hospital_id], references: [id])
+  attending_hospital    Hospital? @relation(name: "attending_hospital", fields: [attending_hospital_id], references: [id])
+  medicine              Medicine  @relation(fields: [medicine_id], references: [id])
+  priority              Priority  @relation(fields: [priority_id], references: [id])
+  status                Status    @relation(fields: [status_id], references: [id])
+
+  @@map("requests")
+}
