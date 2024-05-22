@@ -1,7 +1,7 @@
 import { Kafka, logLevel } from "kafkajs";
 
 const kafka = new Kafka({
-  brokers: ["pet-foxhound-5150-us1-kafka.upstash.io:9092"],
+  brokers: [process.env.KAFKA_ENDPOINT ?? ""],
   ssl: true,
   sasl: {
     mechanism: "scram-sha-256",
