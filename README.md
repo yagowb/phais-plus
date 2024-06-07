@@ -9,4 +9,4 @@ Projeto de conclusão do curso Análise e Desenvolvimento de Sistemas pela Unive
 - Victor Kauan
 - Mikael Oliveira
 - Yago Santos
-- João Gabriel
+- Natan Rocha
