@@ -1,10 +1,133 @@
-# PHAIS+  
-Medication management and exchange system for hospital pharmacies.  
 
-### UNIFOR  
+
+
+
+
+
+<div align="center">
+
+
+
+
+# PHAIS+
+
+<em>A healthcare management platform for medication requests and patient care</em>
+
+<!-- BADGES -->
+![Last Commit](https://img.shields.io/github/last-commit/yagowb/phais-plus?style=flat-square)
+![Top Language](https://img.shields.io/github/languages/top/yagowb/phais-plus?style=flat-square)
+
+<br><br>
+<em>Technology Stack</em>
+
+**Frontend**  
+![React](https://img.shields.io/badge/React-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?logo=tailwind-css&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-646CFF?logo=vite&logoColor=white)
+
+**Backend**  
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=nodedotjs&logoColor=white)
+![Express](https://img.shields.io/badge/Express.js-000000?logo=express&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-2D3748?logo=prisma&logoColor=white)
+![Kafka](https://img.shields.io/badge/Kafka-231F20?logo=apachekafka&logoColor=white)
+
+**DevOps**  
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)
+![Git](https://img.shields.io/badge/Git-F05032?logo=git&logoColor=white)
+![npm](https://img.shields.io/badge/npm-CB3837?logo=npm&logoColor=white)
+<br>
+
+
+</div>
+
+
+
+
+
+## Table of Contents
+1. [Overview](#overview)
+2. [Features](#features)
+3. [Project Structure](#project-structure)
+4. [Getting Started](#getting-started)
+5. [Contributing](#contributing)
+6. [Acknowledgments](#acknowledgments)
+7. [License](#license)
+   
+## Overview
+PHAIS-PLUS is a comprehensive healthcare management platform designed to streamline medication requests, patient care coordination, and hospital management.
+
+## Features
+- 💊 Medication Management
+- 🏥 Patient Care Coordination
+- 📱 Cross-Platform Access
+- 🔄 Real-time Updates
+- 🔒 Secure Authentication
+- 📊 Analytics Dashboard
+
+## Project Structure
+
+```sh
+phais-plus/
+  ├── client/
+  ├── mobile/
+  └── server/
+      ├── gateway/
+      ├── medicines/
+      ├── requests/
+      └── users/
+```
+
+
+## Getting Started
+
+### Prerequisites
+- Node.js v16+
+- Docker
+- PostgreSQL
+
+### Installation
+```bash
+git clone https://github.com/yagowb/phais-plus.git
+cd phais-plus
+cd client && npm install
+cd ../mobile && npm install
+cd ../server && npm install
+
+Environment Variables
+NODE_ENV=development
+PORT=3000
+DATABASE_URL=postgresql://user:password@localhost:5432/db
+
+```
+
+---
+<br><br>
+## Contributing
+
+We welcome contributions!
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
+3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
+4. Push to the branch (`git push origin feature/AmazingFeature`)
+5. Open a Pull Request
+
+---
+
+
+
+<br><br>
+## Acknowledgments
+
+- Healthcare professionals for their valuable insights
+- Open source community for amazing tools
+- Inspired by real healthcare challenges
+  
 Final project for the Systems Analysis and Development course at the University of Fortaleza.  
 
-#### Team  
+Team:
 - Beatriz Vidal  
 - Victor Kauan  
 - Mikael Oliveira  
@@ -12,156 +135,9 @@ Final project for the Systems Analysis and Development course at the University 
 - Natan Rocha  
 
 
-------
+<br><br>
+## License
 
-# PHAIS+: Architecture and System Design
-
-Below is a detailed view of the project architecture and system design, explaining how technologies, services, and components integrate to create the PHAIS+ application, a robust and scalable system for medication management in pharmacies and hospitals.
-
-## 1. Architecture Overview
-
-The system is divided into three main pillars:
-
-- **Mobile Frontend**: Mobile application for end users (pharmacies, hospitals, patients).
-- **Web Frontend**: Web interface for administrators and managers.
-- **Backend**: Based on microservices, with an API Gateway to manage requests and integrations.
-
-The architecture is decentralized, focusing on scalability, simplified maintenance, and performance. The use of microservices and Docker allows the system to be easily scalable and adaptable to different scenarios.
+This project is licensed under the MIT License - see the [LICENSE](https://mit-license.org/) file for details.
 
 ---
-
-## 2. Mobile Frontend
-
-### Technologies Used
-
-- **React Native**: Framework for cross-platform mobile app development (iOS and Android).
-- **Expo**: Facilitates development and app execution without complex configurations.
-- **Expo Router**: File-based navigation, similar to Next.js.
-- **React Navigation**: Library for screen navigation management.
-- **React Hook Form + Yup**: For form management and validation.
-- **Axios**: Performs HTTP calls to the backend.
-- **Socket.IO Client**: Real-time communication with the backend.
-- **Lodash**: Data manipulation utility.
-- **Jest**: Unit and integration testing.
-
-### Main Features
-
-- **User Authentication**: User login and registration (pharmacies, hospitals, patients).
-- **Medication Management**: Query, add, and remove medications.
-- **Orders/Requests**: Creation and tracking of medication orders.
-- **Real-time Notifications**: Updates about orders, inventory, and alerts.
-- **Backend Integration**: Communication via REST API and WebSocket (Socket.IO).
-
----
-
-## 3. Web Frontend
-
-### Technologies Used
-
-- **React.js**: Library for building user interfaces.
-- **Vite**: Fast build and development tool.
-- **Tailwind CSS**: Utility-first CSS framework for responsive styling.
-- **MUI Joy UI**: UI component library based on Material UI.
-- **React Router**: Frontend route management.
-- **Axios**: Performs HTTP calls to the backend.
-- **React Hot Toast**: Display of notifications and alerts.
-- **Emotion**: CSS-in-JS styling.
-
-### Main Features
-
-- **Administrative Dashboard**: Metrics and reports visualization.
-- **User Management**: User creation, editing, and deletion.
-- **Inventory Control**: Medication inventory monitoring and updating.
-- **Order Management**: Approval, rejection, and order tracking.
-- **Backend Integration**: Communication via REST API.
-
----
-
-## 4. Backend
-
-### Microservices Architecture
-
-The backend is divided into three main microservices, each with specific responsibilities:
-
-#### **Medicines Microservice (`medicines`)**
-- Manages medication registration, queries, and updates.
-- Integrates with the database via Prisma ORM.
-
-**Endpoints:**
-- `GET /medicines`: Lists all medications.
-- `POST /medicines`: Adds a new medication.
-- `PUT /medicines/:id`: Updates an existing medication.
-- `DELETE /medicines/:id`: Removes a medication.
-
-#### **Requests Microservice (`requests`)**
-- Manages medication orders (creation, approval, rejection).
-
-**Endpoints:**
-- `GET /requests`: Lists all requests.
-- `POST /requests`: Creates a new request.
-- `PUT /requests/:id`: Updates request status.
-
-#### **Users Microservice (`users`)**
-- Manages authentication, authorization, and user profiles.
-
-**Endpoints:**
-- `POST /users/login`: User authentication.
-- `POST /users/register`: New user registration.
-- `GET /users/:id`: Gets user information.
-
-### Technologies Used
-
-- **Node.js**: Runtime environment for microservices.
-- **TypeScript**: Main development language.
-- **Prisma ORM**: Database access tool.
-- **Docker**: Microservices containerization.
-- **KrakenD**: API Gateway for request management.
-- **Socket.IO**: Real-time communication between frontend and backend.
-
-### Database
-
-Each microservice has its own database, managed by Prisma ORM.  
-Supported databases: **PostgreSQL, MySQL, or SQLite**.
-
----
-
-## 5. API Gateway (KrakenD)
-
-### Main Functions
-
-- **Endpoint Unification**: Centralizes requests to microservices.
-- **Load Balancing**: Distributes requests among microservice instances.
-- **Security**: Request authentication and authorization.
-- **Cache**: Improves performance by storing frequently requested responses.
-
-### Configuration
-
-- `krakend.json`: KrakenD configuration file, defining routes, authentication, and microservices integration.
-- **Docker Compose**: KrakenD and microservices orchestration.
-
----
-
-## 6. Infrastructure and Deployment
-
-### Technologies Used
-
-- **Docker**: Containerization of microservices and API Gateway.
-- **Docker Compose**: Container orchestration.
-- **Nginx**: Web server to serve the web frontend.
-- **Cloud Providers**: Possibility of deployment on services like **AWS, Google Cloud, or Azure**.
-
-### Deployment Flow
-
-1. **Container Building**: Each microservice and the API Gateway are built as Docker containers.
-2. **Orchestration**: Docker Compose brings up all services (database, microservices, API Gateway).
-3. **Cloud Deployment**: Containers are deployed to a cloud provider, with load balancing and monitoring.
-
----
-
-## 7. Conclusion
-
-The system is designed to be **scalable, modular, and easy to maintain**. The division into microservices allows each part of the system to be developed, tested, and deployed independently.  
-
-The use of modern technologies such as **React Native, Node.js, TypeScript, Prisma ORM, and Docker** ensures a **high level of performance and flexibility**. The **API Gateway (KrakenD)** centralizes and manages requests, while **Docker Compose** facilitates service orchestration.  
-
-This architecture is ideal for a **medication manager** that needs to serve different types of users (**pharmacies, hospitals, patients**) efficiently and securely.
